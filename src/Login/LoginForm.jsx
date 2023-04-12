@@ -2,7 +2,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import Input from '../components/Login/Input'
+import Input from '../components/Input'
 import { Link } from 'react-router-dom'
 
 const schema = yup.object().shape({

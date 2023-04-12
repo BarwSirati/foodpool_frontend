@@ -1,7 +1,6 @@
 import React from 'react'
 
 const Input = ({ id, label, type = 'text', error, placeholder, register }) => {
-  console.log(error ? 'red-500' : 'none')
   return (
     <div className="flex flex-col space-y-2">
       <label htmlFor={id} className="text-black">
