@@ -6,8 +6,8 @@ import Input from '../components/Login/Input'
 import { Link } from 'react-router-dom'
 
 const schema = yup.object().shape({
-  username: yup.string().required('Please enter your username'),
-  password: yup.string().required('Please enter your password'),
+  username: yup.string().required(),
+  password: yup.string().required(),
 })
 
 const LoginForm = () => {
@@ -39,6 +39,7 @@ const LoginForm = () => {
         <Input
           id={'password'}
           label={'Password'}
+          type="password"
           placeholder={'password'}
           error={errors.password?.message}
           register={register('password', { required: true })}
