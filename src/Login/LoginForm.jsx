@@ -52,7 +52,7 @@ const LoginForm = () => {
         </button>
         <div className="text-base font-medium text-center">
           Don't have an account yet ?
-          <Link href="register" className="ml-1 text-orange-600 font-semibold">
+          <Link to="/register" className="ml-1 text-orange-600 font-semibold">
             Sign Up
           </Link>
         </div>
