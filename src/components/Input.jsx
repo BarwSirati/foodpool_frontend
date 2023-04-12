@@ -8,8 +8,8 @@ const Input = ({ id, label, type = 'text', error, placeholder, register }) => {
       </label>
       <input
         id={id}
-        className={`w-full p-4 transition-colors bg-gray-200 border rounded-xl focus:bg-gray-100 focus:outline-none border-${
-          error ? 'red-500' : 'none'
+        className={`w-full p-4 transition-colors text-black bg-gray-200 border rounded-xl focus:bg-gray-100 focus:outline-none ${
+          error && 'border-red-500'
         }`}
         type={type}
         placeholder={placeholder}
