@@ -5,7 +5,8 @@ import Layout from './components/Layout'
 import Home from './Home'
 import Login from './Login'
 import Register from './Register'
-import { RequireAuth } from 'react-auth-kit'
+import ProtectRoute from './Components/ProtectRoute'
+import Error from './Components/Error'
 
 axios.defaults.baseURL = import.meta.env.VITE_APP_API
 const App = () => {
@@ -15,14 +16,15 @@ const App = () => {
         <Route
           index
           element={
-            <RequireAuth loginPath="/login">
+            <ProtectRoute>
               <Home />
-            </RequireAuth>
+            </ProtectRoute>
           }
         />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Route>
+      <Route path="*" element={<Error />} />
     </Routes>
   )
 }

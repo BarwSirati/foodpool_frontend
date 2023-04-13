@@ -2,10 +2,10 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import Input from '../components/Input'
+import Input from '../Components/Input'
 import { Link } from 'react-router-dom'
-import { useSignIn } from 'react-auth-kit'
-import { login } from '../services/user.service'
+import { useAuth } from '../Contexts/AuthContext'
+import { useCookies } from 'react-cookie'
 
 const schema = yup.object().shape({
   username: yup.string().required(),
@@ -13,7 +13,8 @@ const schema = yup.object().shape({
 })
 
 const LoginForm = () => {
-  const signIn = useSignIn()
+  const [cookies, setCookie] = useCookies(['token'])
+  const { login } = useAuth()
   const {
     register,
     handleSubmit,
@@ -21,8 +22,11 @@ const LoginForm = () => {
   } = useForm({ resolver: yupResolver(schema) })
 
   const onSubmit = async (data) => {
-    const res = await login(data.username, data.password)
-    console.log(res)
+    var res = await login(data.username, data.password)
+    if (res) {
+      setCookie('token', res, { path: '/' })
+      window.location = '/'
+    }
   }
   return (
     <div className="flex flex-col flex-auto p-8 bg-white divide-y divide-line">
