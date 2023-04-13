@@ -4,6 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import Input from '../components/Input'
 import { Link } from 'react-router-dom'
+import { useSignIn } from 'react-auth-kit'
+import { login } from '../services/user.service'
 
 const schema = yup.object().shape({
   username: yup.string().required(),
@@ -11,14 +13,16 @@ const schema = yup.object().shape({
 })
 
 const LoginForm = () => {
+  const signIn = useSignIn()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) })
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit = async (data) => {
+    const res = await login(data.username, data.password)
+    console.log(res)
   }
   return (
     <div className="flex flex-col flex-auto p-8 bg-white divide-y divide-line">
