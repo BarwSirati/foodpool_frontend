@@ -5,16 +5,16 @@ import Layout from './components/Layout'
 import Home from './Home'
 import Login from './Login'
 import Register from './Register'
-import ProtectRoute from './Components/ProtectRoute'
-import Error from './Components/Error'
+import ProtectRoute from './components/ProtectRoute'
+import Error from './components/Error'
 
 axios.defaults.baseURL = import.meta.env.VITE_APP_API
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
+    <Layout>
+      <Routes>
         <Route
-          index
+          path="/"
           element={
             <ProtectRoute>
               <Home />
@@ -23,9 +23,10 @@ const App = () => {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-      </Route>
-      <Route path="*" element={<Error />} />
-    </Routes>
+
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </Layout>
   )
 }
 

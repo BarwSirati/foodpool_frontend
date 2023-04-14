@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { getProfile, login, logout } from '../Services/user.service'
+import { getProfile, login, logout } from '../services/user.service'
 
 const AuthContext = createContext({
   isAuthenticated: false,

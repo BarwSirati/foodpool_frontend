@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import Input from '../components/Input'
+import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import { registerUser } from '../services/user.service'
 import One from './Step/One'
 import Two from './Step/Two'
 import Three from './Step/Three'
@@ -23,8 +24,8 @@ const RegisterForm = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) })
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit = async (data) => {
+    await registerUser({ ...data })
   }
   const conditionalComponent = () => {
     switch (page) {
@@ -83,6 +84,12 @@ const RegisterForm = () => {
               </button>
             )}
           </div>
+        </div>
+        <div className="text-base font-medium text-center">
+          Already have an account ?
+          <Link to="/login" className="ml-1 text-orange-600 font-semibold">
+            Sign In
+          </Link>
         </div>
       </form>
     </div>

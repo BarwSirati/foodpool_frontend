@@ -1,7 +1,7 @@
 import React from 'react'
 import LoginLogo from './LoginLogo'
 import LoginForm from './LoginForm'
-import { useAuth } from '../Contexts/AuthContext'
+import { useAuth } from '../contexts/AuthContext'
 import { Navigate } from 'react-router-dom'
 
 const Login = () => {
