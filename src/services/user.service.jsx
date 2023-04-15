@@ -56,7 +56,7 @@ export const logout = async () => {
 }
 
 export const getProfile = async () => {
-  const token = document.cookie.split('=')[1]
+  const token = Cookies.get('token')
   if (token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
     try {
