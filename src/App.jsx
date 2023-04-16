@@ -1,16 +1,32 @@
 import React from 'react'
-import Login from './Login'
+import axios from 'axios'
 import { Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './Home'
+import Login from './Login'
+import Register from './Register'
+import ProtectRoute from './components/ProtectRoute'
+import Error from './components/Error'
+
+axios.defaults.baseURL = import.meta.env.VITE_APP_API
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
+    <Layout>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectRoute>
+              <Home />
+            </ProtectRoute>
+          }
+        />
         <Route path="/login" element={<Login />} />
-      </Route>
-    </Routes>
+        <Route path="/register" element={<Register />} />
+
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </Layout>
   )
 }
 
