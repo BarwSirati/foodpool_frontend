@@ -2,21 +2,7 @@ import React from 'react'
 import { useAuth } from '../contexts/AuthContext'
 
 const Home = () => {
-  const { user, logout } = useAuth()
-  return (
-    <div className="bg-green-500 w-full min-h-screen">
-      <div>
-        <button
-          className="btn btn-error"
-          onClick={() => {
-            logout()
-          }}
-        >
-          Logout
-        </button>
-      </div>
-    </div>
-  )
+  return <div className="w-full"></div>
 }
 
 export default Home
