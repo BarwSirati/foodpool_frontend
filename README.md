@@ -19,10 +19,14 @@ npm install -g yarn
 yarn
 ```
 
+### Install PreCommit
+```bash
+yarn run prepare
+```
+
 
 
 ## Start 🔥
-
 
 ### Run with Hot Reload
 ```bash
