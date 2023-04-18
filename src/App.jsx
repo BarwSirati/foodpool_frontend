@@ -9,6 +9,7 @@ import ProtectRoute from './components/ProtectRoute'
 import Error from './components/Error'
 import { useAuth } from './contexts/AuthContext'
 import Navbar from './components/Navbar'
+import Profile from './Profile'
 
 axios.defaults.baseURL = import.meta.env.VITE_APP_API
 const App = () => {
@@ -22,6 +23,14 @@ const App = () => {
           element={
             <ProtectRoute>
               <Home />
+            </ProtectRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectRoute>
+              <Profile />
             </ProtectRoute>
           }
         />
