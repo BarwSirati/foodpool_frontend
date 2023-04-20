@@ -15,6 +15,8 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [postsPerPage] = useState(9)
 
+  
+
   useEffect(() => {
     const fetchDatas = async () => {
       const res = await axios.get('https://jsonplaceholder.typicode.com/posts')
@@ -35,7 +37,6 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="flex justify-center ">
         <div className=" bg-white px-10 py-10">
           <div className=" relative">
@@ -49,7 +50,7 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-3 gap-20 pt-8">
             {currentPosts.map((data) => (
-              <Card name={data.id} />
+              <Card name={data.id}/>
             ))}
           </div>
           <Pagination
