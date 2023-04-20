@@ -15,6 +15,9 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [postsPerPage] = useState(9)
 
+  const { user } = useAuth()
+
+
   
 
   useEffect(() => {
@@ -50,7 +53,7 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-3 gap-20 pt-8">
             {currentPosts.map((data) => (
-              <Card name={data.id}/>
+              <Card name={data.id} user={user.id}/>
             ))}
           </div>
           <Pagination

@@ -11,6 +11,7 @@ const Card = ({menu, name, type, location, user}) => {
     if (number < 10) {
       setNumber(number+1)
     }
+    console.log(user)
   }
   if(number == 10){
     statenum = "Full"
