@@ -16,7 +16,7 @@ const Navbar = () => {
 
   const pathsMobile = [
     ...paths,
-    { key: 3, name: 'My Post', to: '/myPost' },
+    { key: 3, name: 'Post', to: '/post' },
     { key: 4, name: 'Profile', to: '/profile' },
   ]
   return (
@@ -78,27 +78,33 @@ const Navbar = () => {
         id="dropdown"
         className={`z-10 ${
           click ? '' : 'hidden'
-        } bg-white mr-2 mt-2  ml-auto divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`}
+        } bg-white mr-2 mt-2 right-0 divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 absolute`}
       >
         <ul
           className="py-2 text-sm text-gray-700 dark:text-gray-200"
           aria-labelledby="multiLevelDropdownButton"
         >
           <li>
-            <a
-              href="#"
+            <Link
+              to={'/profile'}
               className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              onClick={() => {
+                setClick(!click)
+              }}
             >
               Profile
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="#"
+            <Link
+              to={'/post'}
               className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              onClick={() => {
+                setClick(!click)
+              }}
             >
-              My Post
-            </a>
+              Post
+            </Link>
           </li>
           <li>
             <a

@@ -8,13 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint --fix --ext .js,.jsx ./src",
-    "format": "yarn run lint && prettier --write ./src",
-    "prepare": "husky install"
-  },
-  "lint-staged": {
-    "**/*.{js,jsx}": [
-      "yarn run lint"
-    ]
+    "format": "yarn run lint && prettier --write ./src"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.0.1",

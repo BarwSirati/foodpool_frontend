@@ -7,11 +7,25 @@ export const login = async (username, password) => {
     const res = await axios.post('/api/auth/login', { username, password })
     const token = res.data.token
     if (token) {
-      toast.success('Login Success', {
-        position: toast.POSITION.TOP_CENTER,
-      })
-      Cookies.set('token', token)
-      window.location = '/'
+      const resolveAfter3Sec = new Promise((resolve) =>
+        setTimeout(resolve, 1000)
+      )
+      toast
+        .promise(
+          resolveAfter3Sec,
+          {
+            pending: 'Loading',
+            success: 'Success',
+            error: 'Error',
+          },
+          { position: toast.POSITION.TOP_CENTER }
+        )
+        .then(() => {
+          setTimeout(() => {
+            Cookies.set('token', token)
+            window.location = '/'
+          }, 1000)
+        })
     }
   } catch (err) {
     toast.error('Invalid Credential', {
@@ -38,10 +52,24 @@ export const registerUser = async ({
       line,
     })
     if (res.status === 200) {
-      toast.success('Register Success', {
-        position: toast.POSITION.TOP_CENTER,
-      })
-      window.location = '/login'
+      const resolveAfter3Sec = new Promise((resolve) =>
+        setTimeout(resolve, 1000)
+      )
+      toast
+        .promise(
+          resolveAfter3Sec,
+          {
+            pending: 'Loading',
+            success: 'Success',
+            error: 'Error',
+          },
+          { position: toast.POSITION.TOP_CENTER }
+        )
+        .then(() => {
+          setTimeout(() => {
+            window.location = '/login'
+          }, 1000)
+        })
     }
   } catch (err) {
     toast.error("Can't Register", {
@@ -64,6 +92,49 @@ export const getProfile = async () => {
       return res.data
     } catch (err) {
       logout()
+    }
+  }
+}
+
+export const updateProfile = async (
+  id,
+  { name, lastname, username, password, tel, line }
+) => {
+  const token = Cookies.get('token')
+  if (token) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    try {
+      const res = await axios.put(`/api/user/${id}`, {
+        name,
+        lastname,
+        username,
+        password,
+        tel,
+        line,
+      })
+
+      if (res.status == 200) {
+        const resolveAfter3Sec = new Promise((resolve) =>
+          setTimeout(resolve, 1000)
+        )
+        toast
+          .promise(
+            resolveAfter3Sec,
+            {
+              pending: 'Loading',
+              success: 'Success',
+              error: 'Error',
+            },
+            { position: toast.POSITION.TOP_CENTER }
+          )
+          .then(() => {
+            setTimeout(() => {
+              window.location = '/profile'
+            }, 1000)
+          })
+      }
+    } catch (err) {
+      console.log(err)
     }
   }
 }
