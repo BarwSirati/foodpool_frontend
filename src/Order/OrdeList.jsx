@@ -11,7 +11,7 @@ const OrderList = () => {
 
   return (
     <div>
-      <div className="bg-[#353474] text-[#FAF5FF] flex p-5 rounded-xl mt-5">
+      <div className="bg-[#353474] text-[#FAF5FF] flex p-5 rounded-xl mt-5 z-10 relative">
         <div className="flex w-full">
           <div className="w-full flex space-x-2">
             <h1 className="md:text-2xl">ข้าวผัดผงกระหรี่ไก่</h1>
@@ -34,7 +34,11 @@ const OrderList = () => {
           </div>
         </div>
       </div>
-      {expanded && <div className="">test</div>}
+      {expanded &&
+        <div className="bg-[#FAF5FF] shadow-xl shadow-[#CAC8E9] rounded-xl h-36 mt-[-10px] pt-6 z-0">
+          <h2 className='text-2xl'>wait API</h2>
+        </div>
+      }
     </div>
   )
 }
