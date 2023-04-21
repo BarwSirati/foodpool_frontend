@@ -1,77 +1,121 @@
 import React from 'react'
-import Head from './Head'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import Select from './Select'
 import * as yup from 'yup'
-
-
+import Input from '../components/Input'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form'
 
 const schema = yup.object().shape({
-    location: yup.string().required(),
-    other: yup.string(),
-    deposit: yup.string().min(1).max(10).required()
+  stallId: yup.number().required(),
+  menuName: yup.string().required(),
+  location: yup.string().required(),
+  description: yup.string(),
+  typePost: yup.number().required(),
+  limitOrder: yup.number().min(1).max(10).required(),
 })
+const Post = ({ onClose, user, state }) => {
+  const [data, setData] = useState([])
 
-const Post = ({isVisible, onClose}) =>{
+  useEffect(() => {
+    const fetchDatas = async () => {
+      const res = await axios.get('https://jsonplaceholder.typicode.com/users')
+      setData(res.data)
+    }
 
-    if (!isVisible) return null
-    
-    const [data, setData] = useState([])
+    fetchDatas()
+  }, [])
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) })
 
-    useEffect(() => {
-        const fetchDatas = async () => {
-            const res = await axios.get('https://jsonplaceholder.typicode.com/users')
-            setData(res.data)
-        }
-    
-        fetchDatas()
-        }, [])
+  const onSubmit = async (data) => {
+    data.userId = user.id
+    console.log(data)
+    onClose()
+  }
 
-
-    return(
-        <div className='bg-black bg-opacity-25 fixed h-full inset-0 backdrop-blur-sm flex justify-center items-center'>
-            <div className=' w-3/6'>
-                <div className='bg-white text-black py-7 px-10 rounded-lg'>
-                    <Head text={"Create Post"}/>
-                    <form action="" className='font-bold text-2xl mt-5'>
-                        <div className='flex flex-col gap-5'>
-                            <div>
-                                <p>ชื่อร้าน</p>
-                                <Select data={data}/>
-                            </div>   
-                            <div className='flex gap-3'>
-                                <div>
-                                    <p>ประเภท</p>
-                                    <Select data={data}/>
-                                </div>
-                                <div>
-                                    <p>สถานที่จัดส่ง</p>
-                                    <input className='bg-gray-200 rounded-lg focus:outline-none' type="text" />
-                                </div>
-                            </div>
-                            <div className='flex gap-3'>
-                                <div>
-                                    <p>อื่นๆ</p>
-                                    <input className='bg-gray-200 rounded-lg focus:outline-none' type="text" />
-                                </div>
-                                <div>
-                                    <p>รับฝากสูงสุด</p>
-                                    <input className='bg-gray-200 rounded-lg focus:outline-none' type="text" />
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <div className='text-white flex justify-between'>
-                    <button className='bg-red-500 rounded-lg py-2 px-3 mt-5' onClick={() => onClose()}>close</button>
-                    <button className=' bg-green-300 rounded-lg py-2 px-3 mt-5'>Post</button>
-                    </div>
-                </div>
-            </div>
-            </div>
-    )
-
+  return (
+    <div className="ml-auto">
+      <label className="btn btn-warning text-2xl" onClick={() => onClose()}>
+        +
+      </label>
+      <div className={`modal backdrop-blur-sm ${state ? 'modal-open' : ''}`}>
+        <div className="modal-box max-w-5xl bg-white divide-y-2 divide-line">
+          <h2 className="text-2xl font-semibold mb-5">Create Post</h2>
+          <div>
+            <form onSubmit={handleSubmit(onSubmit)} className="mt-5 space-y-5">
+              <Select
+                id={'stall'}
+                label={'ชื่อร้าน'}
+                options={[
+                  { name: 'เลือกร้านอาหาร', value: '' },
+                  { name: 'API', value: '1' },
+                ]}
+                register={register('stallId')}
+                error={errors.stallId?.message}
+              />
+              <Input
+                id={'menuName'}
+                label={'ชื่อเมนู'}
+                placeholder={'ชื่อเมนู'}
+                register={register('menuName')}
+                error={errors.menuName?.message}
+              />
+              <Select
+                id={'typePost'}
+                label={'ประเภทคำสั่งซื้อ'}
+                options={[
+                  { name: 'เลือกประเภทคำสั่งซื้อ', value: '' },
+                  { name: 'API', value: '1' },
+                ]}
+                register={register('typePost')}
+                error={errors.typePost?.message}
+              />
+              <Input
+                id={'location'}
+                label={'สถานที่จัดส่ง'}
+                placeholder={'สถานที่จัดส่ง'}
+                register={register('location')}
+                error={errors.location?.message}
+              />
+              <Input
+                id={'limitOrder'}
+                type="number"
+                label={'จำนวนที่รับฝาก'}
+                placeholder={'จำนวนที่รับฝาก'}
+                register={register('limitOrder')}
+                error={errors.limitOrder?.message}
+              />
+              <Input
+                id={'description'}
+                label={'อื่นๆ'}
+                placeholder={'อื่นๆ'}
+                register={register('description')}
+                error={errors.description?.message}
+              />
+              <div className="w-full flex space-x-2 justify-end">
+                <button type="submit" className="btn btn-success">
+                  Post
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-error"
+                  onClick={() => onClose()}
+                >
+                  Discard
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default Post
