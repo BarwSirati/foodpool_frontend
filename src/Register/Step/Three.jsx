@@ -2,7 +2,7 @@ import React from 'react'
 import Input from '../../components/Input'
 const Three = ({ register, errors }) => {
   return (
-    <div>
+    <div className="space-y-4">
       <Input
         id={'tel'}
         label={'Tel'}

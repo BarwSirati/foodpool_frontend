@@ -3,7 +3,7 @@ import Input from '../../components/Input'
 
 const One = ({ register, errors }) => {
   return (
-    <div>
+    <div className="space-y-4">
       <Input
         id={'name'}
         label={'Name'}
