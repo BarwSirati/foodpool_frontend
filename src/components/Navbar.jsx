@@ -55,7 +55,7 @@ const Navbar = () => {
           </label>
         </div>
       </div>
-      <div className={`navbar-menu-mobile ${isOpen ? 'active' : ''}`}>
+      <div className={`navbar-menu-mobile z-50 ${isOpen ? 'active' : ''}`}>
         <ul className="p-2">
           {pathsMobile.map((path) => {
             return (

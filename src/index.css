@@ -125,3 +125,38 @@ html {
 .profileBox {
   @apply md:flex my-5 md:space-y-0 space-y-5;
 }
+
+/* paginate */
+.pagination {
+  @apply flex justify-center;
+  z-index: 20;
+}
+.paginate {
+  @apply py-6;
+  @apply w-[min(1400px,100%)] flex lg:gap-x-2 justify-center;
+  @apply lg:left-[-20px];
+  border-radius: 10px;
+  position: relative;
+}
+.paginate-item > a {
+  @apply text-white py-2 px-4 lg:py-4 lg:px-8;
+  @apply bg-headcard;
+  border-radius: 10px;
+  outline: none;
+  transition: all 100ms;
+}
+.paginate-item:not(.active) {
+  @apply hidden md:block;
+}
+.paginate-item.active > a {
+  @apply bg-background border-rose-500;
+  cursor: default;
+}
+.paginate-arrow > a {
+  @apply md:text-white text-black py-4 px-8 md:bg-headcard bg-none;
+  border-radius: 10px;
+  outline: none;
+}
+.paginate-arrow > a:hover {
+  @apply border-rose-500;
+}
