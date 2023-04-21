@@ -1,10 +1,14 @@
 import React from 'react'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
+import CreateOrder from './CreateOrder'
 
-const Card = ({ menu, name, type, location, user }) => {
+const Card = ({ menu, name, type, location, user}) => {
   const [number, setNumber] = useState(0)
   let statenum = 'ฝาก'
+
+  const [createOrder, setCreateOrder] = useState(false)
+
 
   const addnum = () => {
     if (number < 10) {
@@ -15,6 +19,8 @@ const Card = ({ menu, name, type, location, user }) => {
   if (number == 10) {
     statenum = 'Full'
   }
+
+  
 
   return (
     <div className="md:w-[30%] md:m-5 m-4">
@@ -29,13 +35,14 @@ const Card = ({ menu, name, type, location, user }) => {
         <p>ผู้รับฝาก : {name}</p>
         <p>ประเภท : </p>
         <p>ที่ส่ง : </p>
-        <button
+        <CreateOrder state={createOrder} onClose={() => setCreateOrder(!createOrder)} id={5}/>
+        {/* <button
           className="absolute bottom-4 right-9 bg-[#38BDF8] px-6 py-2 rounded-lg text-white"
           type="submit"
           onClick={addnum}
         >
           {statenum}
-        </button>
+        </button> */}
       </div>
     </div>
   )
