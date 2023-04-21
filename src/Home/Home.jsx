@@ -45,7 +45,7 @@ const Home = () => {
       </div>
       <div className="flex md:flex-wrap md:flex-row flex-col justify-center md:py-10 py-3">
         {currentPosts.reverse().map((data) => (
-          <Card name={data.id} user={user.id}/>
+          <Card name={data.id} userId={user.id}/>
         ))}
       </div>
       <div className="pagination pt-10">

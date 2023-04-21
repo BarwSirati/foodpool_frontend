@@ -21,7 +21,7 @@ const Navbar = () => {
   ]
   return (
     <header className="navbar-wrapper">
-      <div className="navbar">
+      <div className="navbar max-lg:fixed max-lg:z-50">
         <h1 className="navbar-header">Foolpool</h1>
         <div className="navbar-menu">
           <ul className="navbar-menu-wrapper">
@@ -42,8 +42,8 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <div className="navbar-menu-mobile-button ml-auto">
-          <label className="btn-white btn">
+        <div className="navbar-menu-mobile-button ml-auto ">
+          <label className="btn-white btn bg-background border-background hover:bg-red-500 hover:border-red-500">
             <input
               type="checkbox"
               onClick={() => {

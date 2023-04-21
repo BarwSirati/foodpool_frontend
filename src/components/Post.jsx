@@ -15,6 +15,7 @@ const schema = yup.object().shape({
   typePost: yup.number().required(),
   limitOrder: yup.number().min(1).max(10).required(),
 })
+
 const Post = ({ onClose, user, state }) => {
   const [data, setData] = useState([])
 

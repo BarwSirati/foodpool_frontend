@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import CreateOrder from './CreateOrder'
 
-const Card = ({ menu, name, type, location, user}) => {
+const Card = ({ menu, name, type, location, userId}) => {
   const [number, setNumber] = useState(0)
   let statenum = 'ฝาก'
 
@@ -35,14 +35,7 @@ const Card = ({ menu, name, type, location, user}) => {
         <p>ผู้รับฝาก : {name}</p>
         <p>ประเภท : </p>
         <p>ที่ส่ง : </p>
-        <CreateOrder state={createOrder} onClose={() => setCreateOrder(!createOrder)} id={5}/>
-        {/* <button
-          className="absolute bottom-4 right-9 bg-[#38BDF8] px-6 py-2 rounded-lg text-white"
-          type="submit"
-          onClick={addnum}
-        >
-          {statenum}
-        </button> */}
+        <CreateOrder state={createOrder} onClose={() => setCreateOrder(!createOrder)} postId={5} userId={userId}/>
       </div>
     </div>
   )
