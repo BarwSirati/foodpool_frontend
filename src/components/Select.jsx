@@ -1,16 +1,24 @@
-import React from "react";
+import React from 'react'
 
-const Select = ({data}) =>{
-    return(
-        <div class="inline-block relative w-64">
-        <select class="block appearance-none w-full bg-gray-200 border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline mt-3">
-            {data.map((d) => <option className=''>{d.name}</option>)}
-        </select>
-        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-        </div>
-        </div>
-    )
+const Select = ({ id, label, options, error, register }) => {
+  return (
+    <div className="flex flex-col space-y-2">
+      <label htmlFor={id}>{label}</label>
+      <select
+        id={id}
+        className={`w-full p-4 transition-colors bg-gray-200 border rounded-xl focus:bg-gray-100 focus:outline-none ${
+          error && 'border-red-500'
+        }`}
+        {...register}
+      >
+        {options.map(({ name, value }) => (
+          <option value={value} key={value}>
+            {name}
+          </option>
+        ))}
+      </select>
+    </div>
+  )
 }
 
 export default Select
