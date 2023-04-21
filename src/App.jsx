@@ -5,6 +5,7 @@ import Layout from './components/Layout'
 import Home from './Home'
 import Login from './Login'
 import Register from './Register'
+import Post from './Post'
 import ProtectRoute from './components/ProtectRoute'
 import Error from './components/Error'
 import { useAuth } from './contexts/AuthContext'
@@ -36,6 +37,14 @@ const App = () => {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route
+          path="/post"
+          element={
+            <ProtectRoute>
+              <Post />
+            </ProtectRoute>
+          }
+        />
 
         <Route path="*" element={<Error />} />
       </Routes>
