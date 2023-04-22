@@ -4,18 +4,22 @@ import ReactPaginate from 'react-paginate'
 const Pagination = ({ postPerPage, totalPosts, paginate }) => {
   const pageNumbers = Math.ceil(totalPosts / postPerPage)
 
+  const handleNextPageButtonClick = async (n) => {
+    await paginate(n.selected);
+    window.scrollTo({top: 0, behavior: 'smooth'})
+  }
+
   return (
     <ReactPaginate
       breakLabel="..."
       nextLabel=">"
-      onPageChange={(n) => paginate(n.selected)}
+      onPageChange={handleNextPageButtonClick}
       pageRangeDisplayed={3}
       marginPagesDisplayed={3}
       pageCount={pageNumbers}
       previousLabel="<"
       renderOnZeroPageCount={null}
       pageClassName="paginate-item"
-      pageLinkClassName=""
       className="paginate"
       nextClassName={'paginate-arrow'}
       previousClassName={'paginate-arrow'}

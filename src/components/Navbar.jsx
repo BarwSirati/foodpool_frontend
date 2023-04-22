@@ -21,7 +21,7 @@ const Navbar = () => {
   ]
   return (
     <header className="navbar-wrapper">
-      <div className="navbar max-lg:fixed max-lg:z-50">
+      <div className="navbar">
         <h1 className="navbar-header">Foolpool</h1>
         <div className="navbar-menu">
           <ul className="navbar-menu-wrapper">
