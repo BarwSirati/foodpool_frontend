@@ -23,7 +23,7 @@ const Card = ({ menu, name, type, location, userId}) => {
   
 
   return (
-    <div className="md:w-[30%] md:m-5 m-4">
+    <div className="md:w-[40%] lg:w-[35%] xl:w-[30%]  md:m-5 m-4">
       <div className="bg-headcard rounded-t-xl px-5 py-4 relative text-white">
         <p>ข้าวผัดผงกระหรี่ไก่</p>
         <label className=" text-xs">โรงพระเทพ</label>

@@ -48,7 +48,7 @@ const CreateOrder = ({ onClose, state, postId, userId }) => {
         <div className="modal-box max-w-5xl bg-white divide-y-2 divide-line">
           <h2 className="text-2xl font-semibold mb-5">Create Order</h2>
           <div>
-            <div className="w-full  mt-5 px-5 py-2 rounded-lg text-lg">
+            <div className="w-full  mt-5 px-5 py-2 rounded-lg text-lg bg-lime-400">
               <h1 className=" text-2xl">
                 ชื่อร้าน : ข้าวผัดผงกระหรี่ไก่ (โรงพระเทพ)
               </h1>
@@ -61,7 +61,7 @@ const CreateOrder = ({ onClose, state, postId, userId }) => {
                 <p>เพิ่มเติม : บลาๆๆๆๆๆ</p>
               </div>
             </div>
-            <h2 className="text-2xl font-medium">สั่งตามเพื่อน</h2>
+            <h2 className="text-2xl font-medium mt-3">สั่งตามเพื่อน</h2>
             <div className="space-y-3 mt-3 h-96 overflow-auto">
               {items.map((item) => {
                 return <MenuList />

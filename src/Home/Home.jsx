@@ -12,7 +12,11 @@ const Home = () => {
   const [createPost, setCreatePost] = useState(false)
   const [data, setData] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
-  const postsPerPage = 9
+  const [windowSize,SetWindowSize] = useState(window.innerWidth)
+  let postsPerPage = 9
+  if(windowSize < 1280){
+    postsPerPage = 8
+  }
 
   const { user } = useAuth()
 
@@ -23,6 +27,16 @@ const Home = () => {
     }
 
     fetchDatas()
+
+    const handleWindowResize = () => {
+      SetWindowSize(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleWindowResize);
+
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
   }, [])
 
   const indexOfLastPost = currentPage * postsPerPage

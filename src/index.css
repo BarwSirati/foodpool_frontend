@@ -133,7 +133,7 @@ html {
 }
 .paginate {
   @apply py-6;
-  @apply w-[min(1400px,100%)] flex lg:gap-x-2 justify-center;
+  @apply w-[min(1400px,100%)] flex md:gap-x-2 justify-center;
   @apply lg:left-[-20px];
   border-radius: 10px;
   position: relative;
@@ -153,7 +153,7 @@ html {
   cursor: default;
 }
 .paginate-arrow > a {
-  @apply md:text-white text-black py-4 px-8 md:bg-headcard bg-none;
+  @apply md:text-white text-black py-2 px-4 lg:py-4 lg:px-8 md:bg-headcard bg-none;
   border-radius: 10px;
   outline: none;
 }
