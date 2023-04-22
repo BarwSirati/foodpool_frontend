@@ -13,12 +13,12 @@ const schema = yup.object().shape({
 
 const CreateOrder = ({ onClose, state, postId, userId }) => {
   let fixMenu = false
-  let createMenu = ''
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue
   } = useForm({ resolver: yupResolver(schema) })
 
   const onSubmit = async (data) => {
@@ -32,14 +32,14 @@ const CreateOrder = ({ onClose, state, postId, userId }) => {
 
   if (typepost == 'เมนูเดียวกัน') {
     fixMenu = true
-    createMenu = 'ข้าวผัดผงกระหรี่ไก่'
+    // createMenu = 'ข้าวผัดผงกระหรี่ไก่'
   }
   const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   return (
     <div className="absolute right-5">
       <label
-        className="btn btn-info text-xl text-white"
+        className="btn btn-info text-xl hover:bg-blue-500 text-white"
         onClick={() => onClose()}
       >
         ฝาก
@@ -64,7 +64,7 @@ const CreateOrder = ({ onClose, state, postId, userId }) => {
             <h2 className="text-2xl font-medium mt-3">สั่งตามเพื่อน</h2>
             <div className="space-y-3 mt-3 h-96 overflow-auto">
               {items.map((item) => {
-                return <MenuList />
+                return <MenuList menu={(menu) => setValue('menuName',menu)} name={item}/>
               })}
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className="mt-5 space-y-5">
@@ -74,8 +74,7 @@ const CreateOrder = ({ onClose, state, postId, userId }) => {
                 placeholder={'ชื่อเมนู'}
                 register={register('menuName')}
                 error={errors.menuName?.message}
-                readOnly={fixMenu}
-                value={createMenu}
+                // readOnly={fixMenu}
               />
               <Input
                 id={'note'}
