@@ -20,7 +20,7 @@ const Navbar = () => {
     { key: 4, name: 'Profile', to: '/profile' },
   ]
   return (
-    <header className="navbar-wrapper">
+    <header className="navbar-wrapper sticky top-0">
       <div className="navbar">
         <h1 className="navbar-header">Foolpool</h1>
         <div className="navbar-menu">
