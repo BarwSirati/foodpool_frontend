@@ -23,5 +23,5 @@ jobs:
         run: bash ./run.sh
 
       - name: Message ✉️
-        run: bash ./discord.
+        run: bash ./discord.sh
         
