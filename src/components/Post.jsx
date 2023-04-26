@@ -6,6 +6,7 @@ import * as yup from 'yup'
 import Input from '../components/Input'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
+import { fetchStall } from '../services/stall.service'
 
 const schema = yup.object().shape({
   stallId: yup.number().required(),
@@ -17,12 +18,12 @@ const schema = yup.object().shape({
 })
 
 const Post = ({ onClose, user, state }) => {
-  const [data, setData] = useState([])
+  const [stallData, setStallData] = useState([])
 
   useEffect(() => {
     const fetchDatas = async () => {
-      const res = await axios.get('https://jsonplaceholder.typicode.com/users')
-      setData(res.data)
+      const stall = await fetchStall()
+      setStallData(stall)
     }
 
     fetchDatas()
@@ -54,9 +55,8 @@ const Post = ({ onClose, user, state }) => {
                 id={'stall'}
                 label={'ชื่อร้าน'}
                 options={[
-                  { name: 'เลือกร้านอาหาร', value: '' },
-                  { name: 'API', value: '1' },
-                ]}
+                  { name: 'เลือกร้านอาหาร', id: '' }
+                ].concat(stallData)}
                 register={register('stallId')}
                 error={errors.stallId?.message}
               />
@@ -71,8 +71,9 @@ const Post = ({ onClose, user, state }) => {
                 id={'typePost'}
                 label={'ประเภทคำสั่งซื้อ'}
                 options={[
-                  { name: 'เลือกประเภทคำสั่งซื้อ', value: '' },
-                  { name: 'API', value: '1' },
+                  { name: 'เลือกประเภทคำสั่งซื้อ', id: '' },
+                  { name: 'ร้านไหนก็ได้', id: '0' },
+                  { name: 'ร้านเดียวกัน', id: '1' },
                 ]}
                 register={register('typePost')}
                 error={errors.typePost?.message}
