@@ -13,3 +13,16 @@ export const fetchPost = async() =>{
         }
     }
 }
+
+export const getOrderByUserId = async ( userId ) =>{
+    const token = Cookies.get('token')
+    if (token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        try {
+            const res = await axios.get(`/api/order/user/${userId}`)
+            return res.data
+        } catch (error) {
+            
+        }
+    }
+}
