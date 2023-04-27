@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-import OrderList from './OrdeList'
+import OrderList from './OrderList'
 import Container from '../components/Container'
 
 const Order = () => {

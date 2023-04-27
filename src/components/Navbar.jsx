@@ -11,16 +11,16 @@ const Navbar = () => {
   const [click, setClick] = useState(false)
   const paths = [
     { key: 1, name: 'Home', to: '/' },
-    { key: 2, name: 'Order', to: '/order' },
+    { key: 2, name: 'Post', to: '/post' },
+    { key: 3, name: 'Order', to: '/order' },
   ]
 
   const pathsMobile = [
     ...paths,
-    { key: 3, name: 'Post', to: '/post' },
     { key: 4, name: 'Profile', to: '/profile' },
   ]
   return (
-    <header className="navbar-wrapper">
+    <header className="navbar-wrapper sticky top-0">
       <div className="navbar">
         <h1 className="navbar-header">Foolpool</h1>
         <div className="navbar-menu">
@@ -42,8 +42,8 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <div className="navbar-menu-mobile-button ml-auto">
-          <label className="btn-white btn">
+        <div className="navbar-menu-mobile-button ml-auto ">
+          <label className="btn-white btn bg-background border-background hover:bg-red-500 hover:border-red-500">
             <input
               type="checkbox"
               onClick={() => {
@@ -93,17 +93,6 @@ const Navbar = () => {
               }}
             >
               Profile
-            </Link>
-          </li>
-          <li>
-            <Link
-              to={'/post'}
-              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              onClick={() => {
-                setClick(!click)
-              }}
-            >
-              Post
             </Link>
           </li>
           <li>

@@ -5,157 +5,85 @@ import Card from '../components/Card'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import Pagination from '../components/Pagination'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import Input from '../components/Input'
-import * as yup from 'yup'
-import Select from '../components/Select'
-
-const schema = yup.object().shape({
-  stallId: yup.number().required(),
-  menuName: yup.string().required(),
-  location: yup.string().required(),
-  description: yup.string(),
-  typePost: yup.number().required(),
-  limitOrder: yup.number().min(1).max(10).required(),
-})
-
+import Post from '../components/Post'
+import { getPost } from '../services/post.service'
 const Home = () => {
   const [createPost, setCreatePost] = useState(false)
-  const [data, setData] = useState([])
+  const [isloading, setIsLoading] = useState(false)
+  const [postData, setpostData] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
-  const postsPerPage = 9
+  const [windowSize, SetWindowSize] = useState(window.innerWidth)
+  let postsPerPage = 9
+  if (windowSize < 1280) {
+    postsPerPage = 8
+  }
 
   const { user } = useAuth()
 
   useEffect(() => {
-    const fetchDatas = async () => {
-      const res = await axios.get('https://jsonplaceholder.typicode.com/posts')
-      setData(res.data)
+    const fetchPost = async () => {
+      setIsLoading(true)
+      const res = await getPost()
+      setpostData(res)
+      setIsLoading(false)
     }
 
-    fetchDatas()
+    fetchPost()
+
+    const handleWindowResize = () => {
+      SetWindowSize(window.innerWidth)
+    }
+
+    window.addEventListener('resize', handleWindowResize)
+
+    return () => {
+      window.removeEventListener('resize', handleWindowResize)
+    }
   }, [])
 
   const indexOfLastPost = currentPage * postsPerPage
   const indexOfFirstPost = indexOfLastPost - postsPerPage
-  let currentPosts = data.slice(
-    data.length - indexOfLastPost,
-    data.length - indexOfFirstPost
+  let currentPosts = postData.slice(
+    postData.length - indexOfLastPost,
+    postData.length - indexOfFirstPost
   )
-  if (indexOfLastPost > data.length) {
-    currentPosts = data.slice(0, data.length - indexOfFirstPost)
+  if (indexOfLastPost > postData.length) {
+    currentPosts = postData.slice(0, postData.length - indexOfFirstPost)
   }
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) })
 
-  const onSubmit = async (data) => {
-    data.userId = user.id
-    console.log(data)
-  }
+  console.log(postData)
+
   return (
     <Container>
       <div className="flex">
         <div className="items-center flex">
           <h2 className="text-2xl font-semibold">Post Pool</h2>
         </div>
-        <div className="ml-auto">
-          <label
-            className="btn btn-warning text-2xl"
-            onClick={() => setCreatePost(!createPost)}
-          >
-            +
-          </label>
-        </div>
-        <div
-          className={`modal backdrop-blur-sm ${createPost ? 'modal-open' : ''}`}
-        >
-          <div className="modal-box max-w-5xl bg-white divide-y-2 divide-line">
-            <h2 className="text-2xl font-semibold mb-5">Create Post</h2>
-            <div>
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="mt-5 space-y-5"
-              >
-                <Select
-                  id={'stall'}
-                  label={'ชื่อร้าน'}
-                  options={[
-                    { name: 'เลือกร้านอาหาร', value: '' },
-                    { name: 'API', value: '1' },
-                  ]}
-                  register={register('stallId')}
-                  error={errors.stallId?.message}
-                />
-                <Input
-                  id={'menuName'}
-                  label={'ชื่อเมนู'}
-                  placeholder={'ชื่อเมนู'}
-                  register={register('menuName')}
-                  error={errors.menuName?.message}
-                />
-                <Select
-                  id={'typePost'}
-                  label={'ประเภทคำสั่งซื้อ'}
-                  options={[
-                    { name: 'เลือกประเภทคำสั่งซื้อ', value: '' },
-                    { name: 'API', value: '1' },
-                  ]}
-                  register={register('typePost')}
-                  error={errors.typePost?.message}
-                />
-                <Input
-                  id={'location'}
-                  label={'สถานที่จัดส่ง'}
-                  placeholder={'สถานที่จัดส่ง'}
-                  register={register('location')}
-                  error={errors.location?.message}
-                />
-                <Input
-                  id={'limitOrder'}
-                  type="number"
-                  label={'จำนวนที่รับฝาก'}
-                  placeholder={'จำนวนที่รับฝาก'}
-                  register={register('limitOrder')}
-                  error={errors.limitOrder?.message}
-                />
-                <Input
-                  id={'description'}
-                  label={'อื่นๆ'}
-                  placeholder={'อื่นๆ'}
-                  register={register('description')}
-                  error={errors.description?.message}
-                />
-                <div className="w-full flex space-x-2 justify-end">
-                  <button type="submit" className="btn btn-success">
-                    Save
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-error"
-                    onClick={() => setCreatePost(!createPost)}
-                  >
-                    Discard
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+        <Post
+          onClose={() => setCreatePost(!createPost)}
+          user={user}
+          state={createPost}
+        />
       </div>
-
       <div className="flex md:flex-wrap md:flex-row flex-col justify-center md:py-10 py-3">
-        {currentPosts.reverse().map((data) => (
-          <Card name={data.id} user={user.id} />
-        ))}
+        {isloading ? (
+          <h1 className="text-3xl font-semibold">Loading</h1>
+        ) : (
+          currentPosts.map((data) => (
+            <Card
+              owner={data.user.name + ' ' + data.user.lastname}
+              menuName={data.menuName}
+              stallName={data.stall.name}
+              key={data.id}
+            />
+          ))
+        )}
+        {/*  */}
       </div>
       <div className="pagination pt-10">
         <Pagination
           postPerPage={postsPerPage}
-          totalPosts={data.length}
+          totalPosts={postData.length}
           paginate={(pageNumber) => setCurrentPage(pageNumber + 1)}
         />
       </div>
