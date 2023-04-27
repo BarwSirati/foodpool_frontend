@@ -5,13 +5,14 @@ import Input from './Input'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import MenuList from './MenuList'
+import { createOrder } from '../services/order.service'
 
 const schema = yup.object().shape({
   menuName: yup.string().required(),
   note: yup.string(),
 })
 
-const CreateOrder = ({ onClose, state, postId, userId }) => {
+const CreateOrder = ({ onClose, state, postId, user }) => {
 
   const {
     register,
@@ -21,9 +22,10 @@ const CreateOrder = ({ onClose, state, postId, userId }) => {
   } = useForm({ resolver: yupResolver(schema) })
 
   const onSubmit = async (data) => {
-    data.userId = userId
+    data.userId = user.id
     data.postId = postId
-    console.log(data)
+    await createOrder({...data})
+    // console.log(data)
     onClose()
   }
 

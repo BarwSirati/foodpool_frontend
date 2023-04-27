@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import CreateOrder from './CreateOrder'
 
-const Card = ({ menuName, type, location, owner, stallName, postId }) => {
+const Card = ({ menuName, type, location, owner, stallName, postId, user }) => {
   const [number, setNumber] = useState(0)
   let statenum = 'ฝาก'
 
@@ -36,6 +36,7 @@ const Card = ({ menuName, type, location, owner, stallName, postId }) => {
           state={createOrder}
           onClose={() => setCreateOrder(!createOrder)}
           postId={postId}
+          user={user}
           owner={owner}
         />
       </div>

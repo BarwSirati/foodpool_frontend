@@ -13,6 +13,17 @@ export const getPost = async () => {
   }
 }
 
+export const getPostById = async (id) => {
+  const token = Cookies.get('token')
+  if (token) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    try {
+      const res = await axios.get(`/api/post/user/${id}`)
+      return res.data
+    } catch (error) {}
+  }
+}
+
 export const createPost = async ({
   userId,
   stallId,
@@ -36,11 +47,8 @@ export const createPost = async ({
         limitOrder,
       })
       if (res.status == 200) {
-        Swal.fire(
-          'Post Success',
-          'You clicked the button!',
-          'success'
-        )      }
+        Swal.fire('Order Success', 'You clicked the button!', 'success')
+      }
     } catch (error) {}
   }
 }

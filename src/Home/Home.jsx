@@ -84,7 +84,8 @@ const Home = () => {
               stallName={data.stall.name}
               type={data.typePost}
               location={data.location}
-              postId={data.id} 
+              postId={data.id}
+              user={user}
               key={data.id}
             />
           ))
