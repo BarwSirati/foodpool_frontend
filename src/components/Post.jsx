@@ -1,12 +1,12 @@
 import React from 'react'
-import axios from 'axios'
+
 import { useState, useEffect } from 'react'
 import Select from './Select'
 import * as yup from 'yup'
 import Input from '../components/Input'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-import { fetchStall } from '../services/stall.service'
+import { getStall } from '../services/stall.service'
 
 const schema = yup.object().shape({
   stallId: yup.number().required(),
@@ -22,7 +22,7 @@ const Post = ({ onClose, user, state }) => {
 
   useEffect(() => {
     const fetchDatas = async () => {
-      const stall = await fetchStall()
+      const stall = await getStall()
       setStallData(stall)
     }
 
@@ -54,9 +54,7 @@ const Post = ({ onClose, user, state }) => {
               <Select
                 id={'stall'}
                 label={'ชื่อร้าน'}
-                options={[
-                  { name: 'เลือกร้านอาหาร', id: '' }
-                ].concat(stallData)}
+                options={[{ name: 'เลือกร้านอาหาร', id: '' }].concat(stallData)}
                 register={register('stallId')}
                 error={errors.stallId?.message}
               />

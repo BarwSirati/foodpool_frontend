@@ -6,48 +6,52 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import Pagination from '../components/Pagination'
 import Post from '../components/Post'
-
-
+import { getPost } from '../services/post.service'
 const Home = () => {
   const [createPost, setCreatePost] = useState(false)
-  const [data, setData] = useState([])
+  const [isloading, setIsLoading] = useState(false)
+  const [postData, setpostData] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
-  const [windowSize,SetWindowSize] = useState(window.innerWidth)
+  const [windowSize, SetWindowSize] = useState(window.innerWidth)
   let postsPerPage = 9
-  if(windowSize < 1280){
+  if (windowSize < 1280) {
     postsPerPage = 8
   }
 
   const { user } = useAuth()
 
   useEffect(() => {
-    const fetchDatas = async () => {
-      const res = await axios.get('https://jsonplaceholder.typicode.com/posts')
-      setData(res.data)
+    const fetchPost = async () => {
+      setIsLoading(true)
+      const res = await getPost()
+      setpostData(res)
+      setIsLoading(false)
     }
 
-    fetchDatas()
+    fetchPost()
 
     const handleWindowResize = () => {
-      SetWindowSize(window.innerWidth);
-    };
+      SetWindowSize(window.innerWidth)
+    }
 
-    window.addEventListener('resize', handleWindowResize);
+    window.addEventListener('resize', handleWindowResize)
 
     return () => {
-      window.removeEventListener('resize', handleWindowResize);
-    };
+      window.removeEventListener('resize', handleWindowResize)
+    }
   }, [])
 
   const indexOfLastPost = currentPage * postsPerPage
   const indexOfFirstPost = indexOfLastPost - postsPerPage
-  let currentPosts = data.slice(
-    data.length - indexOfLastPost,
-    data.length - indexOfFirstPost
+  let currentPosts = postData.slice(
+    postData.length - indexOfLastPost,
+    postData.length - indexOfFirstPost
   )
-  if (indexOfLastPost > data.length) {
-    currentPosts = data.slice(0, data.length - indexOfFirstPost)
+  if (indexOfLastPost > postData.length) {
+    currentPosts = postData.slice(0, postData.length - indexOfFirstPost)
   }
+
+  console.log(postData)
 
   return (
     <Container>
@@ -55,17 +59,31 @@ const Home = () => {
         <div className="items-center flex">
           <h2 className="text-2xl font-semibold">Post Pool</h2>
         </div>
-        <Post onClose={() => setCreatePost(!createPost)} user={user} state={createPost}/>
+        <Post
+          onClose={() => setCreatePost(!createPost)}
+          user={user}
+          state={createPost}
+        />
       </div>
       <div className="flex md:flex-wrap md:flex-row flex-col justify-center md:py-10 py-3">
-        {currentPosts.reverse().map((data) => (
-          <Card name={data.id} userId={user.id}/>
-        ))}
+        {isloading ? (
+          <h1 className="text-3xl font-semibold">Loading</h1>
+        ) : (
+          currentPosts.map((data) => (
+            <Card
+              owner={data.user.name + ' ' + data.user.lastname}
+              menuName={data.menuName}
+              stallName={data.stall.name}
+              key={data.id}
+            />
+          ))
+        )}
+        {/*  */}
       </div>
       <div className="pagination pt-10">
         <Pagination
           postPerPage={postsPerPage}
-          totalPosts={data.length}
+          totalPosts={postData.length}
           paginate={(pageNumber) => setCurrentPage(pageNumber + 1)}
         />
       </div>
