@@ -7,6 +7,7 @@ import Input from '../components/Input'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { getStall } from '../services/stall.service'
+import { createPost } from '../services/post.service'
 
 const schema = yup.object().shape({
   stallId: yup.number().required(),
@@ -37,7 +38,7 @@ const Post = ({ onClose, user, state }) => {
 
   const onSubmit = async (data) => {
     data.userId = user.id
-    console.log(data)
+    await createPost({...data})
     onClose()
   }
 

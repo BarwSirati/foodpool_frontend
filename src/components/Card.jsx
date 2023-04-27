@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import CreateOrder from './CreateOrder'
 
-const Card = ({ menuName, type, location, owner, stallName }) => {
+const Card = ({ menuName, type, location, owner, stallName, postId }) => {
   const [number, setNumber] = useState(0)
   let statenum = 'ฝาก'
 
@@ -30,14 +30,14 @@ const Card = ({ menuName, type, location, owner, stallName }) => {
       </div>
       <div className="bg-bodycard rounded-b-xl px-9 pt-7 pb-16 relative text-black shadow-md">
         <p>ผู้รับฝาก : {owner}</p>
-        <p>ประเภท : </p>
-        <p>ที่ส่ง : </p>
-        {/* <CreateOrder
+        <p>ประเภท : {type ? "ร้านเดียวกัน" : "ร้านไหนก็ได้"}</p>
+        <p>ที่ส่ง : {location}</p>
+        <CreateOrder
           state={createOrder}
           onClose={() => setCreateOrder(!createOrder)}
-          postId={5}
+          postId={postId}
           owner={owner}
-        /> */}
+        />
       </div>
     </div>
   )

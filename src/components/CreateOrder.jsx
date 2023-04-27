@@ -12,7 +12,6 @@ const schema = yup.object().shape({
 })
 
 const CreateOrder = ({ onClose, state, postId, userId }) => {
-  let fixMenu = false
 
   const {
     register,
@@ -28,12 +27,6 @@ const CreateOrder = ({ onClose, state, postId, userId }) => {
     onClose()
   }
 
-  const typepost = 'เมนูเดียวกัน'
-
-  if (typepost == 'เมนูเดียวกัน') {
-    fixMenu = true
-    // createMenu = 'ข้าวผัดผงกระหรี่ไก่'
-  }
   const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   return (
@@ -48,7 +41,7 @@ const CreateOrder = ({ onClose, state, postId, userId }) => {
         <div className="modal-box max-w-5xl bg-white divide-y-2 divide-line">
           <h2 className="text-2xl font-semibold mb-5">Create Order</h2>
           <div>
-            <div className="w-full  mt-5 px-5 py-2 rounded-lg text-lg bg-lime-400">
+            {/* <div className="w-full  mt-5 px-5 py-2 rounded-lg text-lg bg-lime-400">
               <h1 className=" text-2xl">
                 ชื่อร้าน : ข้าวผัดผงกระหรี่ไก่ (โรงพระเทพ)
               </h1>
@@ -60,9 +53,9 @@ const CreateOrder = ({ onClose, state, postId, userId }) => {
                 <p>สถานที่จัดส่ง : 0xx-xxx-xxxx</p>
                 <p>เพิ่มเติม : บลาๆๆๆๆๆ</p>
               </div>
-            </div>
+            </div> */}
             <h2 className="text-2xl font-medium mt-3">สั่งตามเพื่อน</h2>
-            <div className="space-y-3 mt-3 h-96 overflow-auto">
+            <div className="space-y-3 mt-3 h-40 overflow-auto">
               {items.map((item) => {
                 return <MenuList menu={(menu) => setValue('menuName',menu)} name={item}/>
               })}
@@ -74,7 +67,6 @@ const CreateOrder = ({ onClose, state, postId, userId }) => {
                 placeholder={'ชื่อเมนู'}
                 register={register('menuName')}
                 error={errors.menuName?.message}
-                // readOnly={fixMenu}
               />
               <Input
                 id={'note'}

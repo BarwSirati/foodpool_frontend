@@ -7,6 +7,9 @@ import { useState, useEffect } from 'react'
 import Pagination from '../components/Pagination'
 import Post from '../components/Post'
 import { getPost } from '../services/post.service'
+
+
+
 const Home = () => {
   const [createPost, setCreatePost] = useState(false)
   const [isloading, setIsLoading] = useState(false)
@@ -20,6 +23,7 @@ const Home = () => {
 
   const { user } = useAuth()
 
+  
   useEffect(() => {
     const fetchPost = async () => {
       setIsLoading(true)
@@ -39,7 +43,11 @@ const Home = () => {
     return () => {
       window.removeEventListener('resize', handleWindowResize)
     }
-  }, [])
+  }, [createPost])
+
+  // useEffect(() => {
+  //   fetchPost()
+  // },[createPost])
 
   const indexOfLastPost = currentPage * postsPerPage
   const indexOfFirstPost = indexOfLastPost - postsPerPage
@@ -74,6 +82,9 @@ const Home = () => {
               owner={data.user.name + ' ' + data.user.lastname}
               menuName={data.menuName}
               stallName={data.stall.name}
+              type={data.typePost}
+              location={data.location}
+              postId={data.id} 
               key={data.id}
             />
           ))
