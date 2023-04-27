@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { MdExpandMore, MdExpandLess } from 'react-icons/md'
 
-const PostList = () => {
+const PostList = (props) => {
 
     const state = [
         { name: 'รอยืนยัน', color: 'bg-orange-400' },
@@ -21,8 +21,8 @@ const PostList = () => {
                 } mt-5`}>
                 <div className="flex w-full">
                 <div className="w-full flex space-x-2">
-                    <h1 className="md:text-2xl">ข้าวผัดผงกระหรี่ไก่</h1>
-                    <h2 className="hidden md:block text-xl md:pt-1">(โรงพระเทพ)</h2>
+                    <h1 className="md:text-2xl">{props.menu}</h1>
+                    <h2 className="hidden md:block text-xl md:pt-1">({props.stall.name})</h2>
                 </div>
                 <div className="w-full flex">
                     <div className="ml-auto flex space-x-2">
@@ -45,11 +45,12 @@ const PostList = () => {
             </div>
             {expanded &&
                 <div className="bg-purple-100 rounded-b-xl p-8">
-                    <h1>ชื่อผู้ส่ง : สิระติ หิรัญธานี</h1>
-                    <h1>สถานที่รับ : ตึก ECC</h1>
-                    <h1>เบอร์โทรศัพท์ผู้ส่ง : 0620832788</h1>
-                    <h1>Line : smarcojaeiei</h1>
-                    <h1>ประเภทการซื้อ : ร้านเดียวกันเท่านั้น</h1>
+                    <h1>ชื่อผู้ส่ง : {props.user.name} {props.user.lastname}</h1>
+                    <h1>โรงอาหาร : โรงอาหารอยู่ไหน!!!</h1>
+                    <h1>สถานที่รับ : {props.location}</h1>
+                    <h1>เบอร์โทรศัพท์ผู้ส่ง : {props.user.tel}</h1>
+                    <h1>Line : {props.user.line}</h1>
+                    <h1>ประเภทการซื้อ : ประเภทอยู่ไหน!!!</h1>
                 </div>
             }
         </div>

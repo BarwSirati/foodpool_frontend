@@ -30,8 +30,15 @@ const Post = () => {
           <h1 className="text-3xl font-semibold">Loading</h1>
         ) : (
           postData.map((data) => {
+            // console.log(data)
             return (
-                <PostList />
+                <PostList 
+                  key = {data.id}
+                  user = {data.user}
+                  stall = {data.stall}
+                  location = {data.location}
+                  menu = {data.menuName}
+                />
             )
           })
         )}
