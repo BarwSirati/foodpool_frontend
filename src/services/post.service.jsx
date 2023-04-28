@@ -47,7 +47,7 @@ export const createPost = async ({
         limitOrder,
       })
       if (res.status == 200) {
-        Swal.fire('Order Success', 'You clicked the button!', 'success')
+        Swal.fire('Post Success', 'You clicked the button!', 'success')
       }
     } catch (error) {}
   }

@@ -5,14 +5,17 @@ import Input from './Input'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import MenuList from './MenuList'
-import { createOrder } from '../services/order.service'
+import { createOrder, getAnonOrderByPostId } from '../services/order.service'
 
 const schema = yup.object().shape({
   menuName: yup.string().required(),
   note: yup.string(),
 })
 
-const CreateOrder = ({ onClose, state, postId, user }) => {
+const CreateOrder = ({ onClose, state, postId, user, num }) => {
+
+  const [order,setOrder] = useState([])
+  const [isLoading,setIsLoading] = useState([])
 
   const {
     register,
@@ -21,13 +24,28 @@ const CreateOrder = ({ onClose, state, postId, user }) => {
     setValue
   } = useForm({ resolver: yupResolver(schema) })
 
+  useEffect(() =>{
+    const fetchOrder = async () => {
+      setIsLoading(true)
+      const res = await getAnonOrderByPostId(postId)
+      setOrder(res)
+      setIsLoading(false)
+      num(order.length)
+      // console.log(order)
+    }
+
+    fetchOrder()
+  },[order])
+
   const onSubmit = async (data) => {
     data.userId = user.id
     data.postId = postId
     await createOrder({...data})
-    // console.log(data)
     onClose()
   }
+
+  // console.log(order)
+
 
   const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -58,8 +76,8 @@ const CreateOrder = ({ onClose, state, postId, user }) => {
             </div> */}
             <h2 className="text-2xl font-medium mt-3">สั่งตามเพื่อน</h2>
             <div className="space-y-3 mt-3 h-40 overflow-auto">
-              {items.map((item) => {
-                return <MenuList menu={(menu) => setValue('menuName',menu)} name={item}/>
+              {order.map((data) => {
+                return <MenuList menu={(menu) => setValue('menuName',menu)} name={data.menuName}/>
               })}
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className="mt-5 space-y-5">

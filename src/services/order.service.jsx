@@ -13,12 +13,12 @@ export const getOrder = async () => {
   }
 }
 
-export const getOrderByPostId = async (postId) => {
+export const getAnonOrderByPostId = async (postId) => {
   const token = Cookies.get('token')
   if (token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
     try {
-      const res = await axios.get(`/api/order/post/${postId}`)
+      const res = await axios.get(`/api/order/post/${postId}/anon`)
       return res.data
     } catch (error) {}
   }
@@ -36,7 +36,7 @@ export const createOrder = async ({ userId, postId, menuName, note }) => {
         note,
       })
       if (res.status == 200) {
-        Swal.fire('Post Success', 'You clicked the button!', 'success')
+        Swal.fire('Order Success', 'You clicked the button!', 'success')
       }
     } catch (error) {}
   }

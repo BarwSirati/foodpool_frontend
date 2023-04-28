@@ -45,10 +45,6 @@ const Home = () => {
     }
   }, [createPost])
 
-  // useEffect(() => {
-  //   fetchPost()
-  // },[createPost])
-
   const indexOfLastPost = currentPage * postsPerPage
   const indexOfFirstPost = indexOfLastPost - postsPerPage
   let currentPosts = postData.slice(
@@ -82,6 +78,7 @@ const Home = () => {
               owner={data.user.name + ' ' + data.user.lastname}
               menuName={data.menuName}
               stallName={data.stall.name}
+              limitOrder={data.limitOrder}
               type={data.typePost}
               location={data.location}
               postId={data.id}
@@ -90,7 +87,6 @@ const Home = () => {
             />
           ))
         )}
-        {/*  */}
       </div>
       <div className="pagination pt-10">
         <Pagination

@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import CreateOrder from './CreateOrder'
 
-const Card = ({ menuName, type, location, owner, stallName, postId, user }) => {
+const Card = ({ menuName, stallName, limitOrder, type, location, owner, postId, user }) => {
   const [number, setNumber] = useState(0)
   let statenum = 'ฝาก'
 
@@ -19,13 +19,14 @@ const Card = ({ menuName, type, location, owner, stallName, postId, user }) => {
     statenum = 'Full'
   }
 
+
   return (
     <div className="md:w-[40%] lg:w-[35%] xl:w-[30%]  md:m-5 m-4">
       <div className="bg-headcard rounded-t-xl px-5 py-4 relative text-white">
         <p>{menuName}</p>
         <label className=" text-xs">{stallName}</label>
         <div className="absolute top-5 right-6 bg-[#59DDC5] px-5 py-3 rounded-md text-black text-xs">
-          {number}/10
+          {number}/{limitOrder}
         </div>
       </div>
       <div className="bg-bodycard rounded-b-xl px-9 pt-7 pb-16 relative text-black shadow-md">
@@ -35,6 +36,7 @@ const Card = ({ menuName, type, location, owner, stallName, postId, user }) => {
         <CreateOrder
           state={createOrder}
           onClose={() => setCreateOrder(!createOrder)}
+          num={(num) => setNumber(num)}
           postId={postId}
           user={user}
           owner={owner}
