@@ -1,10 +1,13 @@
 import React from 'react'
 import { useState } from 'react'
 import { MdExpandMore, MdExpandLess } from 'react-icons/md'
+import { Link } from 'react-router-dom'
 
 const PostList = (props) => {
 
-    const state = [
+    const postState = ['bg-green-500', 'bg-red-400']
+    const typePost = ['ร้านไหนก็ได้', 'ร้านเดียวกัน']
+    const orderState = [
         { name: 'รอยืนยัน', color: 'bg-orange-400' },
         { name: 'กำลังซื้อ', color: 'bg-indigo-400' },
         { name: 'กำลังส่ง', color: 'bg-blue-400' },
@@ -26,19 +29,21 @@ const PostList = (props) => {
                 </div>
                 <div className="w-full flex">
                     <div className="ml-auto flex space-x-2">
-                    <h1 className={`md:pt-1 ${state[4].color} rounded-md px-5`}>
-                        {state[0].name}
-                    </h1>
-                    <label className="swap swap-rotate">
-                        <input
-                        type="checkbox"
-                        onClick={() => {
-                            setExpanded(!expanded)
-                        }}
-                        />
-                        <MdExpandMore className="swap-off text-2xl font-semibold" />
-                        <MdExpandLess className="swap-on text-2xl font-semibold" />
-                    </label>
+                        <h1 className={`md:pt-1 ${postState[0]} rounded-md px-5`}>
+                            <Link to='/post/1'>
+                                ดู order
+                            </Link>
+                        </h1>
+                        <label className="swap swap-rotate">
+                            <input
+                            type="checkbox"
+                            onClick={() => {
+                                setExpanded(!expanded)
+                            }}
+                            />
+                            <MdExpandMore className="swap-off text-2xl font-semibold" />
+                            <MdExpandLess className="swap-on text-2xl font-semibold" />
+                        </label>
                     </div>
                 </div>
                 </div>
@@ -46,11 +51,15 @@ const PostList = (props) => {
             {expanded &&
                 <div className="bg-purple-100 rounded-b-xl p-8">
                     <h1>ชื่อผู้ส่ง : {props.user.name} {props.user.lastname}</h1>
-                    <h1>โรงอาหาร : โรงอาหารอยู่ไหน!!!</h1>
                     <h1>สถานที่รับ : {props.location}</h1>
                     <h1>เบอร์โทรศัพท์ผู้ส่ง : {props.user.tel}</h1>
                     <h1>Line : {props.user.line}</h1>
-                    <h1>ประเภทการซื้อ : ประเภทอยู่ไหน!!!</h1>
+                    <h1>ประเภทการซื้อ : {typePost[props.type]}</h1>
+                    <div className="ml-auto flex space-x-2">
+                        <h1 className={`md:pt-1 ${orderState[props.state].color} rounded-md px-5 text-[#FAF5FF]`}>
+                            {orderState[props.state].name}
+                        </h1>
+                    </div>
                 </div>
             }
         </div>

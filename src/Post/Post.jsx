@@ -30,7 +30,7 @@ const Post = () => {
           <h1 className="text-3xl font-semibold">Loading</h1>
         ) : (
           postData.map((data) => {
-            // console.log(data)
+            console.log(data)
             return (
                 <PostList 
                   key = {data.id}
@@ -38,6 +38,8 @@ const Post = () => {
                   stall = {data.stall}
                   location = {data.location}
                   menu = {data.menuName}
+                  type = {data.typePost}
+                  state = {data.postStatus}
                 />
             )
           })
