@@ -17,25 +17,25 @@ const PostList = (props) => {
     const [status,setStatus] = useState(props.status)
 
     const updateStatusPost = () => {
-        Swal.fire({
-            title: 'Do you want to save the changes?',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            showCancelButton: true,
-            confirmButtonText: 'Confirm',
-        }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-                if (!status) {
+        if (!status) {
+            Swal.fire({
+                title: 'Do you want to save the changes?',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                showCancelButton: true,
+                confirmButtonText: 'Confirm',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
                     const res = updateByPostUser(1,props.id)
                     if (res) {
                         setStatus(1)
                     }
+                } else if (result.isDenied) {
+                    Swal.fire('Changes are not saved', '', 'info')
                 }
-            } else if (result.isDenied) {
-                Swal.fire('Changes are not saved', '', 'info')
-            }
-        })
+            })
+        }
     }
 
     // console.log(status)
