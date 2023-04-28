@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import MenuList from './MenuList'
 import { createOrder, getAnonOrderByPostId } from '../services/order.service'
+import Swal from 'sweetalert2'
 
 const schema = yup.object().shape({
   menuName: yup.string().required(),
@@ -42,13 +43,27 @@ const CreateOrder = ({ onClose, state, postId, user, isFull}) => {
     onClose()
   }
 
+  const showCreateOrder = () =>{
+    if(!user.point){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No have point',
+        footer: '<a href="">Why do I have this issue?</a>'
+      })
+    }else{
+      onClose()
+    }
+    // console.log(user.point)
+  }
+
   // console.log(order)
 
   return (
     <div className="absolute right-5">
       <label
-        className={`btn ${isFull ? 'btn-info' : 'btn-disabled'} text-xl hover:bg-blue-500 text-white font-normal`}
-        onClick={() => onClose()}
+        className={`btn ${isFull ? 'btn-info font-normal' : 'btn-disabled'} text-xl hover:bg-blue-500 text-white `}
+        onClick={() => showCreateOrder()}
       >
         {isFull ? 'ฝาก':'Full'}
       </label>
