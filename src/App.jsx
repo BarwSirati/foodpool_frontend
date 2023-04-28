@@ -48,7 +48,7 @@ const App = () => {
           }
         />
         <Route
-          path="/post/:id"
+          path="/post/:postId"
           element={
             <ProtectRoute>
               <OrderDetail />

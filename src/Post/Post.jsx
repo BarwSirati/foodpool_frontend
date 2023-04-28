@@ -3,12 +3,15 @@ import React, { useEffect, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import PostList from './PostList'
 import Container from '../components/Container'
+import Pagination from '../components/Pagination'
 
 import { getPostByUserId } from '../services/post.service'
 
 const Post = () => {
   const [isloading, setIsLoading] = useState(false)
   const [postData, setPostData] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  let postsPerPage = 8
 
   const { user } = useAuth()
 
@@ -22,6 +25,18 @@ const Post = () => {
     getPostByUser()
   }, [])
 
+  const indexOfLastPost = currentPage * postsPerPage
+  const indexOfFirstPost = indexOfLastPost - postsPerPage
+  let currentPosts = postData.slice(
+    postData.length - indexOfLastPost,
+    postData.length - indexOfFirstPost
+  ).reverse()
+  if (indexOfLastPost > postData.length) {
+    currentPosts = postData.slice(0, postData.length - indexOfFirstPost)
+  }
+
+  // console.log(postData.length)
+
   return (
     <Container>
       <h2 className="text-2xl font-semibold">My post history</h2>
@@ -29,8 +44,7 @@ const Post = () => {
         {isloading ? (
           <h1 className="text-3xl font-semibold">Loading</h1>
         ) : (
-          postData.map((data) => {
-            console.log(data)
+          currentPosts.map((data) => {
             return (
                 <PostList 
                   key = {data.id}
@@ -39,11 +53,19 @@ const Post = () => {
                   location = {data.location}
                   menu = {data.menuName}
                   type = {data.typePost}
-                  state = {data.postStatus}
+                  status = {data.postStatus}
+                  id = {data.id}
                 />
             )
           })
         )}
+      </div>
+      <div className="pagination pt-10">
+        <Pagination
+          postPerPage={postsPerPage}
+          totalPosts={postData.length}
+          paginate={(pageNumber) => setCurrentPage(pageNumber + 1)}
+        />
       </div>
     </Container>
   )

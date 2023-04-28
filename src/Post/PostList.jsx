@@ -2,21 +2,43 @@ import React from 'react'
 import { useState } from 'react'
 import { MdExpandMore, MdExpandLess } from 'react-icons/md'
 import { Link } from 'react-router-dom'
+import { updateByPostUser } from '../services/post.service'
+import Swal from 'sweetalert2'
 
 const PostList = (props) => {
 
-    const postState = ['bg-green-500', 'bg-red-400']
-    const typePost = ['ร้านไหนก็ได้', 'ร้านเดียวกัน']
-    const orderState = [
-        { name: 'รอยืนยัน', color: 'bg-orange-400' },
-        { name: 'กำลังซื้อ', color: 'bg-indigo-400' },
-        { name: 'กำลังส่ง', color: 'bg-blue-400' },
-        { name: 'ส่งสำเร็จ', color: 'bg-green-500' },
-        { name: 'ยกเลิก', color: 'bg-red-400' },
+    const postStatus = [
+        {status: 'open', color:'bg-green-500'}, 
+        {status: 'close', color:'bg-red-400'}
     ]
+    const typePost = ['ร้านไหนก็ได้', 'ร้านเดียวกัน']
 
     const [expanded, setExpanded] = useState(false)
+    const [status,setStatus] = useState(props.status)
 
+    const updateStatusPost = () => {
+        Swal.fire({
+            title: 'Do you want to save the changes?',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            showCancelButton: true,
+            confirmButtonText: 'Confirm',
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                if (!status) {
+                    const res = updateByPostUser(1,props.id)
+                    if (res) {
+                        setStatus(1)
+                    }
+                }
+            } else if (result.isDenied) {
+                Swal.fire('Changes are not saved', '', 'info')
+            }
+        })
+    }
+
+    // console.log(status)
     return (
         <div>
             <div className={`bg-[#353474] text-[#FAF5FF] flex p-5 ${
@@ -29,9 +51,16 @@ const PostList = (props) => {
                 </div>
                 <div className="w-full flex">
                     <div className="ml-auto flex space-x-2">
-                        <h1 className={`md:pt-1 ${postState[0]} rounded-md px-5`}>
-                            <Link to='/post/1'>
-                                ดู order
+                        <div className="ml-auto flex space-x-2">
+                            <h1 className={`md:pt-1 ${postStatus[status].color} rounded-md px-5 text-[#FAF5FF]`}>
+                                <button onClick={updateStatusPost}>
+                                    {postStatus[status].status}
+                                </button>
+                            </h1>
+                        </div>
+                        <h1 className={`md:pt-1 btn-info rounded-md px-5 text-[#FAF5FF]`}>
+                            <Link to={`/post/${props.id}`}>
+                                detail
                             </Link>
                         </h1>
                         <label className="swap swap-rotate">
@@ -55,11 +84,7 @@ const PostList = (props) => {
                     <h1>เบอร์โทรศัพท์ผู้ส่ง : {props.user.tel}</h1>
                     <h1>Line : {props.user.line}</h1>
                     <h1>ประเภทการซื้อ : {typePost[props.type]}</h1>
-                    <div className="ml-auto flex space-x-2">
-                        <h1 className={`md:pt-1 ${orderState[props.state].color} rounded-md px-5 text-[#FAF5FF]`}>
-                            {orderState[props.state].name}
-                        </h1>
-                    </div>
+                    
                 </div>
             }
         </div>
