@@ -55,7 +55,7 @@ const Home = () => {
     currentPosts = postData.slice(0, postData.length - indexOfFirstPost)
   }
 
-  console.log(postData)
+  // console.log(postData)
 
   return (
     <Container>
@@ -83,6 +83,7 @@ const Home = () => {
               location={data.location}
               postId={data.id}
               user={user}
+              countOrder={data.countOrder}
               key={data.id}
             />
           ))

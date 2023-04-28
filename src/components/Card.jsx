@@ -3,20 +3,14 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import CreateOrder from './CreateOrder'
 
-const Card = ({ menuName, stallName, limitOrder, type, location, owner, postId, user }) => {
+const Card = ({ menuName, stallName, limitOrder, type, location, owner, postId, user, countOrder }) => {
   const [number, setNumber] = useState(0)
-  let statenum = 'ฝาก'
+  let state = true
 
   const [createOrder, setCreateOrder] = useState(false)
 
-  const addnum = () => {
-    if (number < 10) {
-      setNumber(number + 1)
-    }
-    console.log(user)
-  }
-  if (number == 10) {
-    statenum = 'Full'
+  if (countOrder == limitOrder) {
+    state = false
   }
 
 
@@ -25,8 +19,8 @@ const Card = ({ menuName, stallName, limitOrder, type, location, owner, postId, 
       <div className="bg-headcard rounded-t-xl px-5 py-4 relative text-white">
         <p>{menuName}</p>
         <label className=" text-xs">{stallName}</label>
-        <div className="absolute top-5 right-6 bg-[#59DDC5] px-5 py-3 rounded-md text-black text-xs">
-          {number}/{limitOrder}
+        <div className={`absolute top-5 right-6 ${state ? 'bg-[#59DDC5]' : 'bg-red-400 text-white'} px-5 py-3 rounded-md text-black text-xs`}>
+          {countOrder}/{limitOrder}
         </div>
       </div>
       <div className="bg-bodycard rounded-b-xl px-9 pt-7 pb-16 relative text-black shadow-md">
@@ -36,10 +30,10 @@ const Card = ({ menuName, stallName, limitOrder, type, location, owner, postId, 
         <CreateOrder
           state={createOrder}
           onClose={() => setCreateOrder(!createOrder)}
-          num={(num) => setNumber(num)}
           postId={postId}
           user={user}
           owner={owner}
+          isFull={state}
         />
       </div>
     </div>

@@ -12,7 +12,7 @@ const schema = yup.object().shape({
   note: yup.string(),
 })
 
-const CreateOrder = ({ onClose, state, postId, user, num }) => {
+const CreateOrder = ({ onClose, state, postId, user, isFull}) => {
 
   const [order,setOrder] = useState([])
   const [isLoading,setIsLoading] = useState([])
@@ -30,8 +30,6 @@ const CreateOrder = ({ onClose, state, postId, user, num }) => {
       const res = await getAnonOrderByPostId(postId)
       setOrder(res)
       setIsLoading(false)
-      num(order.length)
-      // console.log(order)
     }
 
     fetchOrder()
@@ -52,10 +50,10 @@ const CreateOrder = ({ onClose, state, postId, user, num }) => {
   return (
     <div className="absolute right-5">
       <label
-        className="btn btn-info text-xl hover:bg-blue-500 text-white"
+        className={`btn ${isFull ? 'btn-info' : 'btn-disabled'} text-xl hover:bg-blue-500 text-white font-normal`}
         onClick={() => onClose()}
       >
-        ฝาก
+        {isFull ? 'ฝาก':'Full'}
       </label>
       <div className={`modal backdrop-blur-sm ${state ? 'modal-open' : ''}`}>
         <div className="modal-box max-w-5xl bg-white divide-y-2 divide-line">
