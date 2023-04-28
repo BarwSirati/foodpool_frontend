@@ -44,9 +44,6 @@ const CreateOrder = ({ onClose, state, postId, user, isFull}) => {
 
   // console.log(order)
 
-
-  const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
   return (
     <div className="absolute right-5">
       <label
@@ -75,7 +72,7 @@ const CreateOrder = ({ onClose, state, postId, user, isFull}) => {
             <h2 className="text-2xl font-medium mt-3">สั่งตามเพื่อน</h2>
             <div className="space-y-3 mt-3 h-40 overflow-auto">
               {order.map((data) => {
-                return <MenuList menu={(menu) => setValue('menuName',menu)} name={data.menuName}/>
+                return <MenuList menu={(menu) => setValue('menuName',menu)} name={data.menuName} key={data.id}/>
               })}
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className="mt-5 space-y-5">

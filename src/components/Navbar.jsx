@@ -6,9 +6,10 @@ import { GoThreeBars } from 'react-icons/go'
 import { HiXMark } from 'react-icons/hi2'
 
 const Navbar = () => {
-  const { logout } = useAuth()
+  const { logout, user } = useAuth()
   const [isOpen, setIsOpen] = useState(false)
   const [click, setClick] = useState(false)
+  console.log(user.point)
   const paths = [
     { key: 1, name: 'Home', to: '/' },
     { key: 2, name: 'Post', to: '/post' },
@@ -32,6 +33,7 @@ const Navbar = () => {
                 </Link>
               )
             })}
+            <li className={`navbar-menu-item bg-red-500 rounded-lg px-3 `}>My point {user.point}</li>
             <li
               onClick={() => {
                 setClick(!click)
@@ -43,6 +45,7 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-menu-mobile-button ml-auto ">
+          <div className=' absolute top-8 right-24 bg-red-500 rounded-lg px-3 navbar-menu-item'>My point {user.point}</div>
           <label className="btn-white btn bg-background border-background hover:bg-red-500 hover:border-red-500">
             <input
               type="checkbox"
