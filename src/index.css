@@ -17,7 +17,6 @@ html {
 }
 
 body::-webkit-scrollbar {
-  
   display: none;
 }
 
@@ -66,7 +65,7 @@ body::-webkit-scrollbar {
 }
 
 .navbar {
-  @apply px-4 text-white bg-background py-5;
+  @apply md:px-20 px-4 text-white bg-background py-5;
 }
 
 .navbar-header {
@@ -74,13 +73,14 @@ body::-webkit-scrollbar {
 }
 
 .navbar-menu {
-  @apply flex-none mt-2 ml-auto hidden lg:block;
+  @apply flex-none mt-2 ml-auto hidden lg:block font-semibold;
 }
+
 .navbar-menu > ul {
-  @apply space-x-7 menu-horizontal pr-3;
+  @apply space-x-2 menu-horizontal pr-3;
 }
 .navbar-menu-item {
-  @apply cursor-pointer text-white text-xl font-bold;
+  @apply cursor-pointer text-white text-xl;
 }
 
 .navbar-menu-mobile {
@@ -95,7 +95,7 @@ body::-webkit-scrollbar {
   transform: translateX(0);
 }
 .navbar-menu-mobile-item {
-  @apply cursor-pointer text-white px-8 py-6 text-xl font-bold;
+  @apply cursor-pointer text-white px-8 py-6 text-xl;
 }
 .navbar-menu-mobile-item.active > span {
   @apply cursor-default  border-b-4;
@@ -106,7 +106,7 @@ body::-webkit-scrollbar {
 }
 
 .navbar-menu-mobile-button > label {
-  @apply swap swap-rotate justify-items-center;
+  @apply justify-items-center;
   border-radius: 5px;
 }
 .navbar-menu-mobile-button > label > .icon {
@@ -474,4 +474,9 @@ body::-webkit-scrollbar {
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: #a8bbbf;
+}
+
+.header {
+  background-image: url('background.jpg');
+  @apply w-full md:h-72 h-[16.5rem];
 }

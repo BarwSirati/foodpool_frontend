@@ -1,6 +1,5 @@
 import React from 'react'
-import axios from 'axios'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import CreateOrder from './CreateOrder'
 
 const Card = ({ menuName, stallName, limitOrder, type, location, owner, postId, user, countOrder }) => {

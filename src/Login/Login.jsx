@@ -3,11 +3,12 @@ import LoginLogo from './LoginLogo'
 import LoginForm from './LoginForm'
 import { useAuth } from '../contexts/AuthContext'
 import { Navigate } from 'react-router-dom'
+import Loading from '../components/Loading'
 
 const Login = () => {
   const { isAuthenticated, isLogged, isLoading } = useAuth()
   if (isLoading) {
-    return <div>Loading</div>
+    return <Loading />
   }
   if (isAuthenticated && isLogged) {
     return <Navigate to={'/'} replace />

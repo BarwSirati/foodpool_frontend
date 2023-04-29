@@ -38,7 +38,7 @@ const Post = ({ onClose, user, state }) => {
 
   const onSubmit = async (data) => {
     data.userId = user.id
-    await createPost({...data})
+    await createPost({ ...data })
     onClose()
   }
 
@@ -99,7 +99,7 @@ const Post = ({ onClose, user, state }) => {
                 register={register('description')}
                 error={errors.description?.message}
               />
-              <div className="w-full flex space-x-2 justify-end">
+              <div className="w-full flex space-x-2 md:justify-end justify-center">
                 <button type="submit" className="btn btn-success">
                   Post
                 </button>

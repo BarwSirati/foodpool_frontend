@@ -2,13 +2,11 @@ import React from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import Container from '../components/Container'
 import Card from '../components/Card'
-import axios from 'axios'
 import { useState, useEffect } from 'react'
 import Pagination from '../components/Pagination'
 import Post from '../components/Post'
 import { getPost } from '../services/post.service'
-
-
+import Header from '../components/Header'
 
 const Home = () => {
   const [createPost, setCreatePost] = useState(false)
@@ -23,7 +21,6 @@ const Home = () => {
 
   const { user } = useAuth()
 
-  
   useEffect(() => {
     const fetchPost = async () => {
       setIsLoading(true)
@@ -58,45 +55,49 @@ const Home = () => {
   // console.log(postData)
 
   return (
-    <Container>
-      <div className="flex">
-        <div className="items-center flex">
-          <h2 className="text-2xl font-semibold">Post Pool</h2>
+    <>
+      {' '}
+      <Header />
+      <Container>
+        <div className="flex md:px-10">
+          <div className="items-center flex">
+            <h2 className="text-2xl font-semibold">Post Pool</h2>
+          </div>
+          <Post
+            onClose={() => setCreatePost(!createPost)}
+            user={user}
+            state={createPost}
+          />
         </div>
-        <Post
-          onClose={() => setCreatePost(!createPost)}
-          user={user}
-          state={createPost}
-        />
-      </div>
-      <div className="flex md:flex-wrap md:flex-row flex-col justify-center md:py-10 py-3">
-        {isloading ? (
-          <h1 className="text-3xl font-semibold">Loading</h1>
-        ) : (
-          currentPosts.map((data) => (
-            <Card
-              owner={data.user.name + ' ' + data.user.lastname}
-              menuName={data.menuName}
-              stallName={data.stall.name}
-              limitOrder={data.limitOrder}
-              type={data.typePost}
-              location={data.location}
-              postId={data.id}
-              user={user}
-              countOrder={data.countOrder}
-              key={data.id}
-            />
-          ))
-        )}
-      </div>
-      <div className="pagination pt-10">
-        <Pagination
-          postPerPage={postsPerPage}
-          totalPosts={postData.length}
-          paginate={(pageNumber) => setCurrentPage(pageNumber + 1)}
-        />
-      </div>
-    </Container>
+        <div className="flex md:flex-wrap md:flex-row flex-col justify-center md:py-10 py-3">
+          {isloading ? (
+            <h1 className="text-3xl font-semibold">Loading</h1>
+          ) : (
+            currentPosts.map((data) => (
+              <Card
+                owner={data.user.name + ' ' + data.user.lastname}
+                menuName={data.menuName}
+                stallName={data.stall.name}
+                limitOrder={data.limitOrder}
+                type={data.typePost}
+                location={data.location}
+                postId={data.id}
+                user={user}
+                countOrder={data.countOrder}
+                key={data.id}
+              />
+            ))
+          )}
+        </div>
+        <div className="pagination pt-10">
+          <Pagination
+            postPerPage={postsPerPage}
+            totalPosts={postData.length}
+            paginate={(pageNumber) => setCurrentPage(pageNumber + 1)}
+          />
+        </div>
+      </Container>
+    </>
   )
 }
 

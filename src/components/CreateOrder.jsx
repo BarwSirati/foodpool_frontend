@@ -13,19 +13,18 @@ const schema = yup.object().shape({
   note: yup.string(),
 })
 
-const CreateOrder = ({ onClose, state, postId, user, isFull}) => {
-
-  const [order,setOrder] = useState([])
-  const [isLoading,setIsLoading] = useState([])
+const CreateOrder = ({ onClose, state, postId, user, isFull }) => {
+  const [order, setOrder] = useState([])
+  const [isLoading, setIsLoading] = useState([])
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setValue
+    setValue,
   } = useForm({ resolver: yupResolver(schema) })
 
-  useEffect(() =>{
+  useEffect(() => {
     const fetchOrder = async () => {
       setIsLoading(true)
       const res = await getAnonOrderByPostId(postId)
@@ -34,60 +33,64 @@ const CreateOrder = ({ onClose, state, postId, user, isFull}) => {
     }
 
     fetchOrder()
-  },[order])
+  }, [order])
 
   const onSubmit = async (data) => {
     data.userId = user.id
     data.postId = postId
-    await createOrder({...data})
+    await createOrder({ ...data })
     onClose()
   }
 
-  const showCreateOrder = () =>{
-    if(!user.point){
+  const showCreateOrder = () => {
+    if (!user.point) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'No have point',
-        footer: '<a href="">Why do I have this issue?</a>'
+        footer: '<a href="">Why do I have this issue?</a>',
       })
-    }else{
+    } else {
       onClose()
     }
-    // console.log(user.point)
   }
-
-  // console.log(order)
 
   return (
     <div className="absolute right-5">
       <label
-        className={`btn ${isFull ? 'btn-info font-normal' : 'btn-disabled'} text-xl hover:bg-blue-500 text-white `}
+        className={`btn ${
+          isFull ? 'btn-info font-normal' : 'btn-disabled'
+        } text-xl hover:bg-blue-500 text-white `}
         onClick={() => showCreateOrder()}
       >
-        {isFull ? 'ฝาก':'Full'}
+        {isFull ? 'ฝาก' : 'Full'}
       </label>
       <div className={`modal backdrop-blur-sm ${state ? 'modal-open' : ''}`}>
-        <div className="modal-box max-w-5xl bg-white divide-y-2 divide-line">
-          <h2 className="text-2xl font-semibold mb-5">Create Order</h2>
-          <div>
-            {/* <div className="w-full  mt-5 px-5 py-2 rounded-lg text-lg bg-lime-400">
-              <h1 className=" text-2xl">
-                ชื่อร้าน : ข้าวผัดผงกระหรี่ไก่ (โรงพระเทพ)
+        <div className="modal-box max-w-5xl min-h-[80vh] bg-white divide-y-2 divide-line">
+          <h2 className="text-2xl mb-5">
+            {' '}
+            <div className="w-full mt-5 px-5 py-2 rounded-lg text-lg">
+              <h1 className="md:text-2xl text-center">
+                ข้าวผัดผงกระหรี่ไก่ (โรงพระเทพ)
               </h1>
-              <div className="ml-3">
-                <p>ประเภท : ร้านเดียวกัน</p>
-                <p>ผู้รับฝาก : xxxxx xxxxxx</p>
-                <p>ID : xxxxxxx</p>
-                <p>tele : 0xx-xxx-xxxx</p>
+              <div className="mx-auto">
+                <p>จัดซื้อโดย : Sirati Hirunthani</p>
                 <p>สถานที่จัดส่ง : 0xx-xxx-xxxx</p>
                 <p>เพิ่มเติม : บลาๆๆๆๆๆ</p>
               </div>
-            </div> */}
-            <h2 className="text-2xl font-medium mt-3">สั่งตามเพื่อน</h2>
+            </div>
+          </h2>
+          <div>
+            <h2 className="mt-5">สั่งตามเพื่อน</h2>
             <div className="space-y-3 mt-3 h-40 overflow-auto">
               {order.map((data) => {
-                return <MenuList menu={(menu) => setValue('menuName',menu)} name={data.menuName} key={data.id}/>
+                return (
+                  <MenuList
+                    menu={(menu) => setValue('menuName', menu)}
+                    name={data.menuName}
+                    key={data.id}
+                  />
+                )
               })}
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className="mt-5 space-y-5">

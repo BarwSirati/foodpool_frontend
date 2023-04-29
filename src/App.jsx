@@ -14,10 +14,12 @@ import Profile from './Profile'
 
 axios.defaults.baseURL = import.meta.env.VITE_APP_API
 const App = () => {
-  const { isAuthenticated, isLogged, isLoading } = useAuth()
+  const { isAuthenticated, isLogged, isLoading, user } = useAuth()
   return (
     <Layout>
-      {isAuthenticated && isLogged && !isLoading && <Navbar />}
+      {isAuthenticated && isLogged && !isLoading && (
+        <Navbar point={user.point} />
+      )}
       <Routes>
         <Route
           path="/"
