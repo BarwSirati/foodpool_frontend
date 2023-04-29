@@ -30,7 +30,7 @@ const Post = () => {
   let currentPosts = postData.slice(
     postData.length - indexOfLastPost,
     postData.length - indexOfFirstPost
-  ).reverse()
+  )
   if (indexOfLastPost > postData.length) {
     currentPosts = postData.slice(0, postData.length - indexOfFirstPost)
   }
