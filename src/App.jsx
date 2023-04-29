@@ -51,7 +51,7 @@ const App = () => {
 
         <Route path="*" element={<Error />} />
       </Routes>
-      <Footer />
+      {isAuthenticated && isLogged && !isLoading && <Footer />}
     </Layout>
   )
 }
