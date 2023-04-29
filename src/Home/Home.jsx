@@ -52,13 +52,12 @@ const Home = () => {
     currentPosts = postData.slice(0, postData.length - indexOfFirstPost)
   }
 
-
   return (
     <>
       {' '}
       <Header />
       <Container>
-        <div className="flex md:px-10">
+        <div className="flex md:px-10 mb-10">
           <div className="items-center flex">
             <h2 className="text-2xl font-semibold">Post Pool</h2>
           </div>

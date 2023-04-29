@@ -73,8 +73,8 @@ const CreateOrder = ({ onClose, state, postId, user, isFull }) => {
         >
           <h2 className="text-2xl mb-5">
             {' '}
-            <div className="w-full mt-5 px-5 py-2 rounded-lg text-lg">
-              <h1 className="md:text-2xl text-center">
+            <div className="w-full mt-5 py-2 rounded-lg text-lg">
+              <h1 className="md:text-2xl text-lg text-center">
                 ข้าวผัดผงกระหรี่ไก่ (โรงพระเทพ)
               </h1>
               <div className="mx-auto">
@@ -87,8 +87,8 @@ const CreateOrder = ({ onClose, state, postId, user, isFull }) => {
           <div>
             <h2 className="mt-5">สั่งตามเพื่อน</h2>
             <div
-              className={`space-y-3 mt-3 ${
-                order.length > 0 ? 'h-40' : 'h-20'
+              className={`menuBox space-y-3  mt-3  w-full ${
+                order.length > 0 ? 'h-40' : 'md:h-20'
               } overflow-auto`}
             >
               {order.length > 0 ? (
@@ -102,11 +102,18 @@ const CreateOrder = ({ onClose, state, postId, user, isFull }) => {
                   )
                 })
               ) : (
-                <div className="flex md:p-5 p-2 bg-headcard rounded-xl text-white">
-                  <div className="w-full text-2xl flex justify-center items-center">
-                    ยังไม่มีเมนูของเพื่อนๆเลย 🥲
+                <>
+                  <div className="flex md:p-5 p-2 bg-headcard rounded-xl text-white w-full">
+                    <div className="w-full md:text-2xl flex justify-center items-center">
+                      ยังไม่มีเมนูของเพื่อนๆเลย 🥲
+                    </div>
                   </div>
-                </div>
+                  <div className="flex md:p-5 p-2 bg-headcard rounded-xl text-white w-full">
+                    <div className="w-full md:text-2xl flex justify-center items-center">
+                      ยังไม่มีเมนูของเพื่อนๆเลย 🥲
+                    </div>
+                  </div>
+                </>
               )}
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className="mt-5 space-y-5">

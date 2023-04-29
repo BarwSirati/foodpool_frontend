@@ -16,9 +16,8 @@ html {
   @apply bg-body !important;
 }
 
-body::-webkit-scrollbar {
+::-webkit-scrollbar {
   display: none;
-  overflow: hidden;
 }
 
 #app {
@@ -458,22 +457,44 @@ body::-webkit-scrollbar {
   }
 }
 /* custom scrollbar */
-::-webkit-scrollbar {
+.modal-box::-webkit-scrollbar {
   width: 20px;
+  display: block;
 }
 
-::-webkit-scrollbar-track {
+.modal-box::-webkit-scrollbar-track {
   background-color: transparent;
 }
 
-::-webkit-scrollbar-thumb {
+.modal-box::-webkit-scrollbar-thumb {
   background-color: #d6dee1;
   border-radius: 20px;
   border: 6px solid transparent;
   background-clip: content-box;
 }
 
-::-webkit-scrollbar-thumb:hover {
+.modal-box::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}
+
+/* custom scrollbar */
+.menuBox::-webkit-scrollbar {
+  width: 20px;
+  display: block;
+}
+
+.menuBox::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.menuBox::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+.menuBox::-webkit-scrollbar-thumb:hover {
   background-color: #a8bbbf;
 }
 
