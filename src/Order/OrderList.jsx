@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { MdExpandMore, MdExpandLess } from 'react-icons/md'
 
-const OrderList = () => {
+const OrderList = (props) => {
   const state = [
     { name: 'รอยืนยัน', color: 'bg-orange-400' },
     { name: 'กำลังซื้อ', color: 'bg-indigo-400' },
@@ -22,13 +22,13 @@ const OrderList = () => {
       >
         <div className="flex w-full">
           <div className="w-full flex space-x-2">
-            <h1 className="md:text-2xl">ข้าวผัดผงกระหรี่ไก่</h1>
-            <h2 className="hidden md:block text-xl md:pt-1">(โรงพระเทพ)</h2>
+            <h1 className="md:text-2xl">{props.menu}</h1>
+            <h2 className="hidden md:block text-xl md:pt-1">({props.postInfo.stall})</h2>
           </div>
           <div className="w-full flex">
             <div className="ml-auto flex space-x-2">
-              <h1 className={`md:pt-1 ${state[4].color} rounded-md px-5`}>
-                {state[4].name}
+              <h1 className={`md:pt-1 ${state[props.status].color} rounded-md px-5`}>
+                {state[props.status].name}
               </h1>
               <label className="swap swap-rotate">
                 <input
@@ -46,12 +46,13 @@ const OrderList = () => {
       </div>
       {expanded && (
         <div className="bg-purple-100 rounded-b-xl p-8">
-          <h1>ชื่อผู้ส่ง : สิระติ หิรัญธานี</h1>
-          <h1>สถานที่รับ : ตึก ECC</h1>
-          <h1>เบอร์โทรศัพท์ผู้ส่ง : 0620832788</h1>
-          <h1>Line : smarcojaeiei</h1>
-          <h1>ประเภทการซื้อ : ร้านเดียวกันเท่านั้น</h1>
-              
+          <h1>ชื่อผู้ส่ง : ไม่มีใน API</h1>
+          <h1>ชื่อผู้รับ : {props.user.name} {props.user.lastname}</h1>
+          <h1>สถานที่รับ : {props.postInfo.location}</h1>
+          <h1>เบอร์โทรศัพท์ผู้ส่ง : ไม่มีใน API</h1>
+          <h1>เบอร์โทรศัพท์ผู้รับ : {props.user.tel}</h1>
+          <h1>Line ผู้รับ : {props.user.line}</h1>
+          <h1>note : {props.note}</h1>
         </div>
       )}
     </div>
