@@ -28,7 +28,7 @@ const Navbar = ({ point }) => {
         <div className="navbar-menu">
           <ul className="navbar-menu-wrapper">
             <li
-              className={`navbar-menu-item bg-red-500 p-2 px-3 flex items-center mr-1`}
+              className={`navbar-menu-item bg-red-500 p-2 px-3 flex items-center rounded-xl`}
             >
               <GiTwoCoins className="mr-2" /> {point}
             </li>

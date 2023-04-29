@@ -65,7 +65,7 @@ html {
 }
 
 .navbar {
-  @apply md:px-20 px-4 text-white bg-background py-5;
+  @apply md:px-20 px-4 text-white bg-background py-4;
 }
 
 .navbar-header {
@@ -73,12 +73,13 @@ html {
 }
 
 .navbar-menu {
-  @apply flex-none mt-2 ml-auto hidden lg:block font-semibold;
+  @apply flex-none ml-auto hidden lg:block font-semibold;
 }
 
 .navbar-menu > ul {
   @apply space-x-2 menu-horizontal pr-3;
 }
+
 .navbar-menu-item {
   @apply cursor-pointer text-white text-xl;
 }

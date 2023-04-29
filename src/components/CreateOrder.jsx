@@ -22,6 +22,7 @@ const CreateOrder = ({ onClose, state, postId, user, isFull }) => {
     handleSubmit,
     formState: { errors },
     setValue,
+    getValues,
   } = useForm({ resolver: yupResolver(schema) })
 
   useEffect(() => {
@@ -55,6 +56,8 @@ const CreateOrder = ({ onClose, state, postId, user, isFull }) => {
     }
   }
 
+  // console.log(getValues('menuName'))
+
   return (
     <div className="absolute right-5">
       <label
@@ -73,7 +76,7 @@ const CreateOrder = ({ onClose, state, postId, user, isFull }) => {
         >
           <h2 className="text-2xl mb-5">
             {' '}
-            <div className="w-full mt-5 py-2 rounded-lg text-lg">
+            <div className="w-full rounded-lg text-lg">
               <h1 className="md:text-2xl text-lg text-center">
                 ข้าวผัดผงกระหรี่ไก่ (โรงพระเทพ)
               </h1>
@@ -96,24 +99,18 @@ const CreateOrder = ({ onClose, state, postId, user, isFull }) => {
                   return (
                     <MenuList
                       menu={(menu) => setValue('menuName', menu)}
+                      curMenu={getValues('menuName')}
                       name={data.menuName}
                       key={data.id}
                     />
                   )
                 })
               ) : (
-                <>
                   <div className="flex md:p-5 p-2 bg-headcard rounded-xl text-white w-full">
                     <div className="w-full md:text-2xl flex justify-center items-center">
-                      ยังไม่มีเมนูของเพื่อนๆเลย 🥲
+                      ยังไม่มีเมนูของเพื่อนๆนะจ๊ะ 
                     </div>
                   </div>
-                  <div className="flex md:p-5 p-2 bg-headcard rounded-xl text-white w-full">
-                    <div className="w-full md:text-2xl flex justify-center items-center">
-                      ยังไม่มีเมนูของเพื่อนๆเลย 🥲
-                    </div>
-                  </div>
-                </>
               )}
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className="mt-5 space-y-5">
