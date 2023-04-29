@@ -69,7 +69,7 @@ const CreateOrder = ({ onClose, state, postId, user, isFull }) => {
         <div
           className={`modal-box max-w-5xl ${
             order.length > 0 ? 'min-h-[80vh]' : ''
-          } bg-white divide-y-2 divide-line `}
+          } bg-white `}
         >
           <h2 className="text-2xl mb-5">
             {' '}

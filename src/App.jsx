@@ -11,6 +11,7 @@ import Error from './components/Error'
 import { useAuth } from './contexts/AuthContext'
 import Navbar from './components/Navbar'
 import Profile from './Profile'
+import Footer from './components/Footer'
 
 axios.defaults.baseURL = import.meta.env.VITE_APP_API
 const App = () => {
@@ -50,6 +51,7 @@ const App = () => {
 
         <Route path="*" element={<Error />} />
       </Routes>
+      <Footer />
     </Layout>
   )
 }
