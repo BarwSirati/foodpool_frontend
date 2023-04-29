@@ -66,7 +66,11 @@ const CreateOrder = ({ onClose, state, postId, user, isFull }) => {
         {isFull ? 'ฝาก' : 'Full'}
       </label>
       <div className={`modal backdrop-blur-sm ${state ? 'modal-open' : ''}`}>
-        <div className="modal-box max-w-5xl min-h-[80vh] bg-white divide-y-2 divide-line">
+        <div
+          className={`modal-box max-w-5xl ${
+            order.length > 0 ? 'min-h-[80vh]' : ''
+          } bg-white divide-y-2 divide-line `}
+        >
           <h2 className="text-2xl mb-5">
             {' '}
             <div className="w-full mt-5 px-5 py-2 rounded-lg text-lg">
@@ -82,16 +86,28 @@ const CreateOrder = ({ onClose, state, postId, user, isFull }) => {
           </h2>
           <div>
             <h2 className="mt-5">สั่งตามเพื่อน</h2>
-            <div className="space-y-3 mt-3 h-40 overflow-auto">
-              {order.map((data) => {
-                return (
-                  <MenuList
-                    menu={(menu) => setValue('menuName', menu)}
-                    name={data.menuName}
-                    key={data.id}
-                  />
-                )
-              })}
+            <div
+              className={`space-y-3 mt-3 ${
+                order.length > 0 ? 'h-40' : 'h-20'
+              } overflow-auto`}
+            >
+              {order.length > 0 ? (
+                order.map((data) => {
+                  return (
+                    <MenuList
+                      menu={(menu) => setValue('menuName', menu)}
+                      name={data.menuName}
+                      key={data.id}
+                    />
+                  )
+                })
+              ) : (
+                <div className="flex md:p-5 p-2 bg-headcard rounded-xl text-white">
+                  <div className="w-full text-2xl flex justify-center items-center">
+                    ยังไม่มีเมนูของเพื่อนๆเลย 🥲
+                  </div>
+                </div>
+              )}
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className="mt-5 space-y-5">
               <Input

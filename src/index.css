@@ -18,6 +18,7 @@ html {
 
 body::-webkit-scrollbar {
   display: none;
+  overflow: hidden;
 }
 
 #app {
@@ -478,5 +479,7 @@ body::-webkit-scrollbar {
 
 .header {
   background-image: url('background.jpg');
+  background-size: cover;
+  background-position: center;
   @apply w-full md:h-72 h-[16.5rem];
 }
