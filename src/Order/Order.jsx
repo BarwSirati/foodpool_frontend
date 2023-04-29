@@ -46,7 +46,7 @@ const Order = () => {
         {isloading ? (
           <h1 className="text-3xl font-semibold">Loading</h1>
         ) : (
-          orderData.map((data) => {
+          currentOrders.map((data) => {
             // console.log(data)
             return(
               <OrderList 

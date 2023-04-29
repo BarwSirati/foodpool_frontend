@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import Container from '../components/Container'
 import { useAuth } from '../contexts/AuthContext'
-import OrderTable from './OrderTable'
+import OrderCard from './OrderCard'
 
 import { getOrderByPostId } from '../services/order.service'
 
@@ -32,7 +32,13 @@ const OrderDetail = () => {
                 {isloading ? (
                     <h1 className="text-3xl font-semibold">Loading</h1>
                 ) : (
-                    <OrderTable />
+                    orderData.map((data) => {
+                        return (
+                            <OrderCard 
+                                key = {data.id}
+                            />
+                        )
+                    })
                 )}
             </div>
         </Container>
