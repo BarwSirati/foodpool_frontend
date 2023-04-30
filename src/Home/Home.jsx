@@ -7,6 +7,7 @@ import Pagination from '../components/Pagination'
 import { getPost } from '../services/post.service'
 import Header from '../components/Header'
 import CreatePost from './CreatePost'
+import ReactSearchBox from "react-search-box";
 
 const Home = () => {
   const [createPost, setCreatePost] = useState(false)
@@ -14,6 +15,7 @@ const Home = () => {
   const [postData, setpostData] = useState([])
   const [refresh, setRefresh] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
+  const [Search, setSearch] = useState('')
   const [windowSize, SetWindowSize] = useState(window.innerWidth)
   let postsPerPage = 9
   if (windowSize < 1280) {
@@ -46,12 +48,12 @@ const Home = () => {
 
   const indexOfLastPost = currentPage * postsPerPage
   const indexOfFirstPost = indexOfLastPost - postsPerPage
-  let currentPosts = postData.slice(
-    postData.length - indexOfLastPost,
-    postData.length - indexOfFirstPost
-  )
-  if (indexOfLastPost > postData.length) {
-    currentPosts = postData.slice(0, postData.length - indexOfFirstPost)
+  const currentPosts = postData.filter((item) => {
+    return Search.toLowerCase() === '' ? item : item.menuName.toLowerCase().includes(Search)
+  }).slice(indexOfFirstPost, indexOfLastPost)
+
+  const showsearch = (e) => {
+    console.log(e)
   }
 
   return (
@@ -62,6 +64,7 @@ const Home = () => {
           <div className="items-center flex">
             <h2 className="text-2xl font-semibold">Post Pool</h2>
           </div>
+          <ReactSearchBox placeholder='Serach...' onChange={(e) => setSearch(e)}/>
           <CreatePost
             onClose={() => setCreatePost(!createPost)}
             user={user}

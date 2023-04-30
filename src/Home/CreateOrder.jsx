@@ -29,7 +29,7 @@ const CreateOrder = ({ onClose, state, post, user, isFull, refresh }) => {
   useEffect(() => {
     const fetchOrder = async () => {
       setIsLoading(true)
-      const res = await getAnonOrderByPostId(postId)
+      const res = await getAnonOrderByPostId(post.id)
       setOrder(res)
       setIsLoading(false)
     }

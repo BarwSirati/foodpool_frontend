@@ -7,7 +7,7 @@ const HeadCreateOrder = ({post}) =>{
     const [isLoading, setIsLoading] = useState([])
     const [Postdata, setPostdata] = useState([])
 
-    console.log(post)
+    // console.log(post)
 
     return(
         <h2 className="text-2xl mb-5">
