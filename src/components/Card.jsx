@@ -3,7 +3,6 @@ import { useState } from 'react'
 import CreateOrder from '../Home/CreateOrder'
 
 const Card = ({ menuName, stallName, limitOrder, type, location, owner, post, user, countOrder, refresh }) => {
-  const [number, setNumber] = useState(0)
   let state = true
 
   const [createOrder, setCreateOrder] = useState(false)

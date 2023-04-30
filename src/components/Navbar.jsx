@@ -27,11 +27,6 @@ const Navbar = ({ point }) => {
         </h1>
         <div className="navbar-menu">
           <ul className="navbar-menu-wrapper">
-            <li
-              className={`navbar-menu-item bg-red-500 p-2 px-3 flex items-center rounded-xl`}
-            >
-              <GiTwoCoins className="mr-2" /> {point}
-            </li>
             <li className="navbar-menu-item p-2 px-3">|</li>
             {paths.map((path) => {
               return (
@@ -44,6 +39,11 @@ const Navbar = ({ point }) => {
                 </Link>
               )
             })}
+            <li
+              className={`navbar-menu-item bg-red-500 p-2 px-3 flex items-center rounded-xl order-first`}
+            >
+              <GiTwoCoins className="mr-2" /> {point}
+            </li>
             <li
               onClick={() => {
                 setClick(!click)

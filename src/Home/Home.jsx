@@ -57,7 +57,6 @@ const Home = () => {
 
   return (
     <>
-      {/* {' '} */}
       <Header />
       <Container>
         <div className="flex md:px-10 mb-10">
