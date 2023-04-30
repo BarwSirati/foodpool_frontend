@@ -28,7 +28,7 @@ const OrderDetail = () => {
     return (
         <Container>
             <h2 className="text-2xl font-semibold">Post Detail</h2>
-            <div className="pt-5 px-32">
+            <div className="pt-5 lg:px-32">
                 {isloading ? (
                     <h1 className="text-3xl font-semibold">Loading</h1>
                 ) : (
@@ -36,6 +36,9 @@ const OrderDetail = () => {
                         return (
                             <OrderCard 
                                 key = {data.id}
+                                menu = {data.menuName}
+                                postInfo = {data.post}
+                                user = {data.user}
                             />
                         )
                     })
