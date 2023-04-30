@@ -8,6 +8,7 @@ import { getPost } from '../services/post.service'
 import Header from '../components/Header'
 import CreatePost from './CreatePost'
 
+
 const Home = () => {
   const [createPost, setCreatePost] = useState(false)
   const [isloading, setIsLoading] = useState(false)
@@ -81,7 +82,7 @@ const Home = () => {
                 limitOrder={data.limitOrder}
                 type={data.typePost}
                 location={data.location}
-                postId={data.id}
+                post={data}
                 user={user}
                 countOrder={data.countOrder}
                 refresh={() => setRefresh(true)}

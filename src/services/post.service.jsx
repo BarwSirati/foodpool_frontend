@@ -18,7 +18,7 @@ export const getPostById = async (id) => {
   if (token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
     try {
-      const res = await axios.get(`/api/post/user/${id}`)
+      const res = await axios.get(`/api/post/${id}`)
       return res.data
     } catch (error) {}
   }

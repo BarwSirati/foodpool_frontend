@@ -7,13 +7,14 @@ import { useForm } from 'react-hook-form'
 import MenuList from '../components/MenuList'
 import { createOrder, getAnonOrderByPostId } from '../services/order.service'
 import Swal from 'sweetalert2'
+import HeadCreateOrder from './HeadCreateOrder'
 
 const schema = yup.object().shape({
   menuName: yup.string().required(),
   note: yup.string(),
 })
 
-const CreateOrder = ({ onClose, state, postId, user, isFull, refresh }) => {
+const CreateOrder = ({ onClose, state, post, user, isFull, refresh }) => {
   const [order, setOrder] = useState([])
   const [isLoading, setIsLoading] = useState([])
 
@@ -38,7 +39,7 @@ const CreateOrder = ({ onClose, state, postId, user, isFull, refresh }) => {
 
   const onSubmit = async (data) => {
     data.userId = user.id
-    data.postId = postId
+    data.postId = post.id
     await createOrder({ ...data })
     refresh()
     onClose()
@@ -75,20 +76,8 @@ const CreateOrder = ({ onClose, state, postId, user, isFull, refresh }) => {
             order.length > 0 ? 'max-h-[80vh]' : ''
           } bg-white `}
         >
-          <h2 className="text-2xl mb-5">
-            {' '}
-            <div className="w-full rounded-lg text-lg">
-              <h1 className="md:text-2xl text-lg text-center">
-                ข้าวผัดผงกระหรี่ไก่ (โรงพระเทพ)
-              </h1>
-              <div className="mx-auto">
-                <p>จัดซื้อโดย : Sirati Hirunthani</p>
-                <p>สถานที่จัดส่ง : 0xx-xxx-xxxx</p>
-                <p>เพิ่มเติม : บลาๆๆๆๆๆ</p>
-              </div>
-            </div>
-          </h2>
           <div>
+            <HeadCreateOrder post={post}/>
             <h2 className="mt-5">สั่งตามเพื่อน</h2>
             <div
               className={`menuBox space-y-3  mt-3  w-full ${
