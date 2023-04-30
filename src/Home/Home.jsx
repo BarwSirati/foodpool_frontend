@@ -8,7 +8,6 @@ import { getPost } from '../services/post.service'
 import Header from '../components/Header'
 import CreatePost from './CreatePost'
 
-
 const Home = () => {
   const [createPost, setCreatePost] = useState(false)
   const [isloading, setIsLoading] = useState(false)
@@ -22,7 +21,7 @@ const Home = () => {
   }
 
   const { user } = useAuth()
-  
+
   useEffect(() => {
     const fetchPost = async () => {
       setIsLoading(true)
@@ -30,7 +29,7 @@ const Home = () => {
       setpostData(res)
       setIsLoading(false)
     }
-    
+
     fetchPost()
     console.log(user.point)
 
@@ -72,6 +71,8 @@ const Home = () => {
         <div className="flex md:flex-wrap md:flex-row flex-col justify-center md:py-10 py-3">
           {isloading ? (
             <h1 className="text-3xl font-semibold">Loading</h1>
+          ) : currentPage.length > 0 ? (
+            'ยังไม่มี Post'
           ) : (
             currentPosts.map((data) => (
               <Card
