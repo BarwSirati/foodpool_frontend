@@ -85,7 +85,7 @@ html {
 }
 
 .navbar-menu-mobile {
-  @apply fixed w-screen lg:hidden top-[88px];
+  @apply fixed w-screen lg:hidden top-[80px];
   @apply bg-slate-800 py-4;
   opacity: 0;
   transform: translateX(-100vw);

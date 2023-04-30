@@ -56,7 +56,7 @@ const CreateOrder = ({ onClose, state, postId, user, isFull }) => {
     }
   }
 
-  // console.log(getValues('menuName'))
+  // console.log(Math.floor(Math.random()*(6-1))+1)
 
   return (
     <div className="absolute right-5">
@@ -91,7 +91,7 @@ const CreateOrder = ({ onClose, state, postId, user, isFull }) => {
             <h2 className="mt-5">สั่งตามเพื่อน</h2>
             <div
               className={`menuBox space-y-3  mt-3  w-full ${
-                order.length > 0 ? 'h-40' : 'md:h-20'
+                order.length > 0 ? 'max-h-40' : 'md:h-20'
               } overflow-auto`}
             >
               {order.length > 0 ? (
@@ -113,6 +113,7 @@ const CreateOrder = ({ onClose, state, postId, user, isFull }) => {
                   </div>
               )}
             </div>
+              {order.length > 0 ? (<div className='mt-3 btn btn-accent' onClick={() => setValue('menuName', order[Math.floor(Math.random()*(order.length-1))+1].menuName)}>Random</div>) : (<div></div>) }
             <form onSubmit={handleSubmit(onSubmit)} className="mt-5 space-y-5">
               <Input
                 id={'menuName'}
