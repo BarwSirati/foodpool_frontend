@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import Select from './Select'
+import Select from '../components/Select'
 import * as yup from 'yup'
 import Input from '../components/Input'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -17,7 +17,7 @@ const schema = yup.object().shape({
   limitOrder: yup.number().min(1).max(10).required(),
 })
 
-const Post = ({ onClose, user, state }) => {
+const CreatePost = ({ onClose, user, state }) => {
   const [stallData, setStallData] = useState([])
 
   useEffect(() => {
@@ -37,6 +37,7 @@ const Post = ({ onClose, user, state }) => {
 
   const onSubmit = async (data) => {
     data.userId = user.id
+    console.log(data)
     await createPost({ ...data })
     onClose()
   }
@@ -118,4 +119,4 @@ const Post = ({ onClose, user, state }) => {
   )
 }
 
-export default Post
+export default CreatePost

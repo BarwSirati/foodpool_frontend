@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
-import CreateOrder from './CreateOrder'
+import CreateOrder from '../Home/CreateOrder'
 
-const Card = ({ menuName, stallName, limitOrder, type, location, owner, postId, user, countOrder }) => {
+const Card = ({ menuName, stallName, limitOrder, type, location, owner, postId, user, countOrder, refresh }) => {
   const [number, setNumber] = useState(0)
   let state = true
 
@@ -33,6 +33,7 @@ const Card = ({ menuName, stallName, limitOrder, type, location, owner, postId, 
           user={user}
           owner={owner}
           isFull={state}
+          refresh={refresh}
         />
       </div>
     </div>

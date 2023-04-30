@@ -37,6 +37,11 @@ export const createOrder = async ({ userId, postId, menuName, note }) => {
       })
       if (res.status == 200) {
         Swal.fire('Order Success', 'You clicked the button!', 'success')
+        .then((result) => {
+          if(result.isConfirmed){
+            document.location = '/'
+          }
+        })
       }
     } catch (error) {}
   }

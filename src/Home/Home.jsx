@@ -4,14 +4,15 @@ import Container from '../components/Container'
 import Card from '../components/Card'
 import { useState, useEffect } from 'react'
 import Pagination from '../components/Pagination'
-import Post from '../components/Post'
 import { getPost } from '../services/post.service'
 import Header from '../components/Header'
+import CreatePost from './CreatePost'
 
 const Home = () => {
   const [createPost, setCreatePost] = useState(false)
   const [isloading, setIsLoading] = useState(false)
   const [postData, setpostData] = useState([])
+  const [refresh, setRefresh] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [windowSize, SetWindowSize] = useState(window.innerWidth)
   let postsPerPage = 9
@@ -20,7 +21,7 @@ const Home = () => {
   }
 
   const { user } = useAuth()
-
+  
   useEffect(() => {
     const fetchPost = async () => {
       setIsLoading(true)
@@ -28,8 +29,9 @@ const Home = () => {
       setpostData(res)
       setIsLoading(false)
     }
-
+    
     fetchPost()
+    console.log(user.point)
 
     const handleWindowResize = () => {
       SetWindowSize(window.innerWidth)
@@ -40,7 +42,7 @@ const Home = () => {
     return () => {
       window.removeEventListener('resize', handleWindowResize)
     }
-  }, [])
+  }, [refresh])
 
   const indexOfLastPost = currentPage * postsPerPage
   const indexOfFirstPost = indexOfLastPost - postsPerPage
@@ -61,7 +63,7 @@ const Home = () => {
           <div className="items-center flex">
             <h2 className="text-2xl font-semibold">Post Pool</h2>
           </div>
-          <Post
+          <CreatePost
             onClose={() => setCreatePost(!createPost)}
             user={user}
             state={createPost}
@@ -82,6 +84,7 @@ const Home = () => {
                 postId={data.id}
                 user={user}
                 countOrder={data.countOrder}
+                refresh={() => setRefresh(true)}
                 key={data.id}
               />
             ))

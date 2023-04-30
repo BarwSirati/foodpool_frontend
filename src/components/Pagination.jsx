@@ -3,7 +3,6 @@ import ReactPaginate from 'react-paginate'
 
 const Pagination = ({ postPerPage, totalPosts, paginate }) => {
   const pageNumbers = Math.ceil(totalPosts / postPerPage)
-  console.log(pageNumbers)
 
   const handleNextPageButtonClick = async (n) => {
     await paginate(n.selected);

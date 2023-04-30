@@ -1,10 +1,10 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import * as yup from 'yup'
-import Input from './Input'
+import Input from '../components/Input'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-import MenuList from './MenuList'
+import MenuList from '../components/MenuList'
 import { createOrder, getAnonOrderByPostId } from '../services/order.service'
 import Swal from 'sweetalert2'
 
@@ -13,7 +13,7 @@ const schema = yup.object().shape({
   note: yup.string(),
 })
 
-const CreateOrder = ({ onClose, state, postId, user, isFull }) => {
+const CreateOrder = ({ onClose, state, postId, user, isFull, refresh }) => {
   const [order, setOrder] = useState([])
   const [isLoading, setIsLoading] = useState([])
 
@@ -40,6 +40,7 @@ const CreateOrder = ({ onClose, state, postId, user, isFull }) => {
     data.userId = user.id
     data.postId = postId
     await createOrder({ ...data })
+    refresh()
     onClose()
   }
 
@@ -71,7 +72,7 @@ const CreateOrder = ({ onClose, state, postId, user, isFull }) => {
       <div className={`modal backdrop-blur-sm ${state ? 'modal-open' : ''}`}>
         <div
           className={`modal-box max-w-5xl ${
-            order.length > 0 ? 'min-h-[80vh]' : ''
+            order.length > 0 ? 'max-h-[80vh]' : ''
           } bg-white `}
         >
           <h2 className="text-2xl mb-5">
@@ -113,8 +114,8 @@ const CreateOrder = ({ onClose, state, postId, user, isFull }) => {
                   </div>
               )}
             </div>
-              {order.length > 0 ? (<div className='mt-3 btn btn-accent' onClick={() => setValue('menuName', order[Math.floor(Math.random()*(order.length-1))+1].menuName)}>Random</div>) : (<div></div>) }
             <form onSubmit={handleSubmit(onSubmit)} className="mt-5 space-y-5">
+              <div className=' relative'>
               <Input
                 id={'menuName'}
                 label={'ชื่อเมนู'}
@@ -122,6 +123,8 @@ const CreateOrder = ({ onClose, state, postId, user, isFull }) => {
                 register={register('menuName')}
                 error={errors.menuName?.message}
               />
+              {order.length > 0 ? (<div className='btn btn-warning absolute top-9 right-2 ' onClick={() => setValue('menuName', order[Math.floor(Math.random()*(order.length-1))+1].menuName)}>?</div>) : (<div></div>) }
+              </div>
               <Input
                 id={'note'}
                 label={'อื่นๆ'}
