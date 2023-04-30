@@ -42,7 +42,7 @@ const Home = () => {
     return () => {
       window.removeEventListener('resize', handleWindowResize)
     }
-  }, [refresh])
+  }, [])
 
   const indexOfLastPost = currentPage * postsPerPage
   const indexOfFirstPost = indexOfLastPost - postsPerPage

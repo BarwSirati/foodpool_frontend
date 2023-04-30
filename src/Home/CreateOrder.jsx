@@ -34,7 +34,7 @@ const CreateOrder = ({ onClose, state, postId, user, isFull, refresh }) => {
     }
 
     fetchOrder()
-  }, [order])
+  }, [])
 
   const onSubmit = async (data) => {
     data.userId = user.id
@@ -123,7 +123,7 @@ const CreateOrder = ({ onClose, state, postId, user, isFull, refresh }) => {
                 register={register('menuName')}
                 error={errors.menuName?.message}
               />
-              {order.length > 0 ? (<div className='btn btn-warning absolute top-9 right-2 ' onClick={() => setValue('menuName', order[Math.floor(Math.random()*(order.length-1))+1].menuName)}>?</div>) : (<div></div>) }
+              {order.length > 1 ? (<div className='btn btn-warning absolute top-9 right-2 ' onClick={() => setValue('menuName', order[Math.floor(Math.random()*(order.length-1))+1].menuName)}>?</div>) : (<div></div>) }
               </div>
               <Input
                 id={'note'}
