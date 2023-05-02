@@ -14,7 +14,6 @@ const Home = () => {
   const [createPost, setCreatePost] = useState(false)
   const [isloading, setIsLoading] = useState(false)
   const [postData, setpostData] = useState([])
-  const [refresh, setRefresh] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [SearchMenu, setSearchMenu] = useState('')
   const [selectStall, setSelectStall] = useState('')
@@ -105,7 +104,6 @@ const Home = () => {
                 post={data}
                 user={user}
                 countOrder={data.countOrder}
-                refresh={() => setRefresh(true)}
                 key={data.id}
               />
             ))

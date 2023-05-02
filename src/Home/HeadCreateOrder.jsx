@@ -1,13 +1,6 @@
 import React from "react";
-import { getPostById } from "../services/post.service";
-import { useEffect, useState } from "react";
 
 const HeadCreateOrder = ({post}) =>{
-
-    const [isLoading, setIsLoading] = useState([])
-    const [Postdata, setPostdata] = useState([])
-
-    // console.log(post)
 
     return(
         <h2 className="text-2xl mb-5">

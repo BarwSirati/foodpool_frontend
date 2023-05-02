@@ -14,7 +14,7 @@ const schema = yup.object().shape({
   note: yup.string(),
 })
 
-const CreateOrder = ({ onClose, state, post, user, isFull, refresh }) => {
+const CreateOrder = ({ onClose, state, post, user, isFull }) => {
   const [order, setOrder] = useState([])
   const [isLoading, setIsLoading] = useState([])
   const [currentMenu, setCurrentMenu] = useState('')
@@ -24,7 +24,6 @@ const CreateOrder = ({ onClose, state, post, user, isFull, refresh }) => {
     handleSubmit,
     formState: { errors },
     setValue,
-    getValues,
   } = useForm({ resolver: yupResolver(schema) })
 
   useEffect(() => {
