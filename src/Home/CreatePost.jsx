@@ -20,6 +20,15 @@ const schema = yup.object().shape({
 const CreatePost = ({ onClose, user, state }) => {
   const [stallData, setStallData] = useState([])
 
+  const inputform = [
+    { type: 1, name: 'stallId', label: 'ชื่อร้าน', typeinput: 'text', error: yup.number().required()},
+    { type: 2, name: 'menuName', label: 'ชื่อเมนู', typeinput: 'text', error: yup.string().required()},
+    { type: 1, name: 'typePost', label: 'ประเภทคำสั่งซื้อ', typeinput: 'text', error: yup.number().required()},
+    { type: 2, name: 'location', label: 'สถานที่จัดส่ง', typeinput: 'text', error: yup.string().required()},
+    { type: 2, name: 'limitOrder', label: 'จำนวนที่รับฝาก', typeinput: 'number', error: yup.number().min(1).max(10).required()},
+    { type: 2, name: 'description', label: 'อื่นๆ', typeinput: 'text', error: yup.string()},
+  ]
+
   useEffect(() => {
     const fetchDatas = async () => {
       const stall = await getStall()
@@ -41,19 +50,32 @@ const CreatePost = ({ onClose, user, state }) => {
     await createPost({ ...data })
     onClose()
   }
+  // console.log(errors.stallId?.message)
 
   return (
-    <div className="ml-auto">
-      <label className="btn btn-warning text-2xl" onClick={() => onClose()}>
+    <div>
+      <div className='tooltip tooltip-bottom max-md:bottom-5 max-md:right-5 max-md:fixed max-md:z-50' data-tip='Create Post'>
+      <label className="btn btn-warning btn-sm text-2xl max-md:btn-circle max-md:btn-success" onClick={() => onClose()}>
         +
       </label>
+      </div>
       <div className={`modal backdrop-blur-sm ${state ? 'modal-open' : ''}`}>
         <div className="modal-box max-w-5xl bg-white divide-y-2 divide-line">
           <h2 className="text-2xl font-semibold mb-5">Create Post</h2>
           <div>
             <form onSubmit={handleSubmit(onSubmit)} className="mt-5 space-y-5">
+              {/* {inputform.map((item) =>{
+                return item.type == 1 ? <div>select</div> : <Input
+                id={item.name}
+                type= {item.type}
+                label={item.label}
+                placeholder={item.label}
+                register={register(item.name)}
+                error={errors.[item.name]?.message}
+              />
+              })} */}
               <Select
-                id={'stall'}
+                id={'stallId'}
                 label={'ชื่อร้าน'}
                 options={[{ name: 'เลือกร้านอาหาร', id: '' }].concat(stallData)}
                 register={register('stallId')}

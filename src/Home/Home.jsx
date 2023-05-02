@@ -5,9 +5,13 @@ import Card from '../components/Card'
 import { useState, useEffect } from 'react'
 import Pagination from '../components/Pagination'
 import { getPost } from '../services/post.service'
+import { getStall } from '../services/stall.service'
 import Header from '../components/Header'
 import CreatePost from './CreatePost'
-import ReactSearchBox from "react-search-box";
+import { useForm } from 'react-hook-form'
+// import Select from '../components/Select'
+// import Search from './Search'
+
 
 const Home = () => {
   const [createPost, setCreatePost] = useState(false)
@@ -16,6 +20,9 @@ const Home = () => {
   const [refresh, setRefresh] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [Search, setSearch] = useState('')
+  const [SearchStall, setSearchStall] = useState('')
+  // const [menu, setMenu] = useState('')
+  const [stallData, setStallData] = useState([])
   const [windowSize, SetWindowSize] = useState(window.innerWidth)
   let postsPerPage = 9
   if (windowSize < 1280) {
@@ -23,6 +30,7 @@ const Home = () => {
   }
 
   const { user } = useAuth()
+  const { register, getValues, setValue } = useForm();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -32,8 +40,14 @@ const Home = () => {
       setIsLoading(false)
     }
 
+    const fetchStalls = async () => {
+      const stall = await getStall()
+      setStallData(stall)
+    }
+
+    fetchStalls()
+
     fetchPost()
-    console.log(user.point)
 
     const handleWindowResize = () => {
       SetWindowSize(window.innerWidth)
@@ -48,28 +62,63 @@ const Home = () => {
 
   const indexOfLastPost = currentPage * postsPerPage
   const indexOfFirstPost = indexOfLastPost - postsPerPage
-  const currentPosts = postData.filter((item) => {
+  // const currentPosts = postData.slice(indexOfFirstPost, indexOfLastPost)
+  // const currentPosts = postData.filter((item) => {
+  //   return menu.toLowerCase() === '' ? item : item.menuName.toLowerCase().includes(menu)
+  // }).slice(indexOfFirstPost, indexOfLastPost)
+  // const currentPosts = postData.filter((item) => {
+  //   return Search.toLowerCase() === '' ? item : item.menuName.toLowerCase().includes(Search)
+  // }).slice(indexOfFirstPost, indexOfLastPost)
+  const postfilter = postData.filter((item) => {
     return Search.toLowerCase() === '' ? item : item.menuName.toLowerCase().includes(Search)
-  }).slice(indexOfFirstPost, indexOfLastPost)
+  }).filter((item) => {
+    return SearchStall.toLowerCase() == '' ? item : item.stall.name.toLowerCase().includes(SearchStall)
+  })
+  const currentPosts = postfilter.slice(indexOfFirstPost, indexOfLastPost)
 
-  const showsearch = (e) => {
-    console.log(e)
+  const showSearch = (e) =>{
+    setSearch(e.target.value)
+    console.log(Search)
   }
+
+  const resetSearch = () => {
+    setValue('search','')
+    setSearch('')
+  }
+
+  const showStall = (e) =>{
+    setSearchStall(e.currentTarget.value)
+  }
+  // console.log(getValues('searchStall'))
 
   return (
     <>
       <Header />
       <Container>
         <div className="flex md:px-10 mb-10">
-          <div className="items-center flex">
+          <div className="items-center flex w-full justify-between">
+            <div className='flex items-center gap-3'>
             <h2 className="text-2xl font-semibold">Post Pool</h2>
+              <CreatePost
+                onClose={() => setCreatePost(!createPost)}
+                user={user}
+                state={createPost}
+              />
+            </div>
+            <div className='relative flex items-center justify-center'>
+              <input type="text"  id="search" autoComplete='off' className='bg-white border-gray-200 border-2 rounded-full pl-4 pr-7 h-10 transition-colors focus:outline-none w-5/6 md:w-full' placeholder='Search...' {...register('search')} onChange={(e) => showSearch(e)}/>
+              <label className={`${Search == '' ? 'invisible' : ''}  absolute top-2 z-50 right-3`} onClick={() => resetSearch()}>X</label>
+            </div>
+            <select id="stall" defaultValue={''} className='bg-gray-200 rounded-xl select select-sm' {...register('searchStall')} onChange={(e) => setSearchStall(e.target.value)}>
+              <option id='' value=''>เลือกร้านอาหาร</option>
+            {stallData.map((stall) => (
+          <option value={stall.name} key={stall.id}>
+            {stall.name}
+          </option>
+        ))}
+            </select>
+            {/* <Search menu={(menuname) => setMenu(menuname)}/> */}
           </div>
-          <ReactSearchBox placeholder='Serach...' onChange={(e) => setSearch(e)}/>
-          <CreatePost
-            onClose={() => setCreatePost(!createPost)}
-            user={user}
-            state={createPost}
-          />
         </div>
         <div className="flex md:flex-wrap md:flex-row flex-col justify-center md:py-10 py-3">
           {isloading ? (
@@ -97,7 +146,7 @@ const Home = () => {
         <div className="pagination pt-10">
           <Pagination
             postPerPage={postsPerPage}
-            totalPosts={postData.length}
+            totalPosts={postfilter.length}
             paginate={(pageNumber) => setCurrentPage(pageNumber + 1)}
           />
         </div>

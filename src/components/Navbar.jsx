@@ -56,7 +56,7 @@ const Navbar = ({ point }) => {
         </div>
         <div className="navbar-menu-mobile-button ml-auto">
           <label
-            className={`btn-white btn bg-red-500 border-red-500 hover:bg-red-400 hover:border-red-400 swap swap-rotate ${
+            className={`btn-white btn bg-background border-background hover:bg-red-500 hover:border-red-500 swap swap-rotate ${
               isOpen ? 'swap-active' : ''
             }`}
           >
