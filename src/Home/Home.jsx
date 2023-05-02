@@ -9,7 +9,6 @@ import { getStall } from '../services/stall.service'
 import Header from '../components/Header'
 import CreatePost from './CreatePost'
 import { useForm } from 'react-hook-form'
-// import Select from '../components/Select'
 // import Search from './Search'
 
 
@@ -21,7 +20,6 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [Search, setSearch] = useState('')
   const [SearchStall, setSearchStall] = useState('')
-  // const [menu, setMenu] = useState('')
   const [stallData, setStallData] = useState([])
   const [windowSize, SetWindowSize] = useState(window.innerWidth)
   let postsPerPage = 9
@@ -62,13 +60,6 @@ const Home = () => {
 
   const indexOfLastPost = currentPage * postsPerPage
   const indexOfFirstPost = indexOfLastPost - postsPerPage
-  // const currentPosts = postData.slice(indexOfFirstPost, indexOfLastPost)
-  // const currentPosts = postData.filter((item) => {
-  //   return menu.toLowerCase() === '' ? item : item.menuName.toLowerCase().includes(menu)
-  // }).slice(indexOfFirstPost, indexOfLastPost)
-  // const currentPosts = postData.filter((item) => {
-  //   return Search.toLowerCase() === '' ? item : item.menuName.toLowerCase().includes(Search)
-  // }).slice(indexOfFirstPost, indexOfLastPost)
   const postfilter = postData.filter((item) => {
     return Search.toLowerCase() === '' ? item : item.menuName.toLowerCase().includes(Search)
   }).filter((item) => {
@@ -89,7 +80,6 @@ const Home = () => {
   const showStall = (e) =>{
     setSearchStall(e.currentTarget.value)
   }
-  // console.log(getValues('searchStall'))
 
   return (
     <>
@@ -123,9 +113,9 @@ const Home = () => {
         <div className="flex md:flex-wrap md:flex-row flex-col justify-center md:py-10 py-3">
           {isloading ? (
             <h1 className="text-3xl font-semibold">Loading</h1>
-          ) : currentPage.length > 0 ? (
+          ) : postData.length < 1 ? (
             'ยังไม่มี Post'
-          ) : (
+          ) : currentPosts.length < 1 ? 'Not found' : (
             currentPosts.map((data) => (
               <Card
                 owner={data.user.name + ' ' + data.user.lastname}
