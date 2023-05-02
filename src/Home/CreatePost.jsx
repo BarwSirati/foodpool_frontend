@@ -26,12 +26,54 @@ const CreatePost = ({ onClose, user, state }) => {
   } = useForm({ resolver: yupResolver(schema) })
 
   const inputform = [
-    { type: 1, name: 'stallId', label: 'ชื่อร้าน', typeinput: 'text', error: errors.stallId?.message},
-    { type: 2, name: 'menuName', label: 'ชื่อเมนู', typeinput: 'text', error: errors.menuName?.message},
-    { type: 1, name: 'typePost', label: 'ประเภทคำสั่งซื้อ', typeinput: 'text', error: errors.typePost?.message},
-    { type: 2, name: 'location', label: 'สถานที่จัดส่ง', typeinput: 'text', error: errors.location?.message},
-    { type: 2, name: 'limitOrder', label: 'จำนวนที่รับฝาก', typeinput: 'number', error: errors.limitOrder?.message},
-    { type: 2, name: 'description', label: 'อื่นๆ', typeinput: 'text', error: errors.description?.message},
+    {
+      key: 1,
+      type: 1,
+      name: 'stallId',
+      label: 'ชื่อร้าน',
+      typeinput: 'text',
+      error: errors.stallId?.message,
+    },
+    {
+      key: 2,
+      type: 2,
+      name: 'menuName',
+      label: 'ชื่อเมนู',
+      typeinput: 'text',
+      error: errors.menuName?.message,
+    },
+    {
+      key: 3,
+      type: 1,
+      name: 'typePost',
+      label: 'ประเภทคำสั่งซื้อ',
+      typeinput: 'text',
+      error: errors.typePost?.message,
+    },
+    {
+      key: 4,
+      type: 2,
+      name: 'location',
+      label: 'สถานที่จัดส่ง',
+      typeinput: 'text',
+      error: errors.location?.message,
+    },
+    {
+      key: 5,
+      type: 2,
+      name: 'limitOrder',
+      label: 'จำนวนที่รับฝาก',
+      typeinput: 'number',
+      error: errors.limitOrder?.message,
+    },
+    {
+      key: 6,
+      type: 2,
+      name: 'description',
+      label: 'อื่นๆ',
+      typeinput: 'text',
+      error: errors.description?.message,
+    },
   ]
 
   const buttype = [
@@ -57,31 +99,45 @@ const CreatePost = ({ onClose, user, state }) => {
 
   return (
     <div>
-      <div className='md:tooltip md:tooltip-bottom max-md:bottom-7 max-md:right-5 max-md:fixed max-md:z-50 max-md:btn-circle max-md:btn-md max-md:shadow-xl btn btn-warning md:btn-sm flex ' data-tip='Create Post' onClick={() => onClose()}>
-      <label className="text-2xl " >
-        +
-      </label>
+      <div
+        className="md:tooltip md:tooltip-bottom max-md:bottom-7 max-md:right-5 max-md:fixed max-md:z-50 max-md:btn-circle max-md:btn-md max-md:shadow-xl btn btn-warning md:btn-sm flex "
+        data-tip="Create Post"
+        onClick={() => onClose()}
+      >
+        <label className="text-2xl ">+</label>
       </div>
       <div className={`modal backdrop-blur-sm ${state ? 'modal-open' : ''}`}>
         <div className="modal-box max-w-5xl bg-white divide-y-2 divide-line">
           <h2 className="text-2xl font-semibold mb-5">Create Post</h2>
           <div>
             <form onSubmit={handleSubmit(onSubmit)} className="mt-5 space-y-5">
-              {inputform.map((item) =>{
-                return item.type == 1 ? <Select
-                id={item.name}
-                label={item.label}
-                options={item.name == 'stallId' ? [{ name: 'เลือกร้านอาหาร', id: '' }].concat(stallData) : [{ name: 'เลือกประเภทคำสั่งซื้อ', id: '' }].concat(buttype)}
-                register={register(item.name)}
-                error={item.error}
-              /> : <Input
-                id={item.name}
-                type= {item.type}
-                label={item.label}
-                placeholder={item.label}
-                register={register(item.name)}
-                error={item.error}
-              />
+              {inputform.map((item) => {
+                return item.type == 1 ? (
+                  <Select
+                    id={item.name}
+                    label={item.label}
+                    options={
+                      item.name == 'stallId'
+                        ? [{ name: 'เลือกร้านอาหาร', id: '' }].concat(stallData)
+                        : [{ name: 'เลือกประเภทคำสั่งซื้อ', id: '' }].concat(
+                            buttype
+                          )
+                    }
+                    register={register(item.name)}
+                    error={item.error}
+                    key={item.key}
+                  />
+                ) : (
+                  <Input
+                    id={item.name}
+                    type={item.type}
+                    label={item.label}
+                    placeholder={item.label}
+                    register={register(item.name)}
+                    error={item.error}
+                    key={item.key}
+                  />
+                )
               })}
               <div className="w-full flex space-x-2 md:justify-end justify-center">
                 <button type="submit" className="btn btn-success">
