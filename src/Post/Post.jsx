@@ -35,7 +35,6 @@ const Post = () => {
     currentPosts = postData.slice(0, postData.length - indexOfFirstPost)
   }
 
-  // console.log(postData.length)
 
   return (
     <Container>
