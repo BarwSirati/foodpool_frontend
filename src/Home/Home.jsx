@@ -66,8 +66,8 @@ const Home = () => {
       <Header />
       <Container>
         <div className="flex md:px-10 mb-10">
-          <div className="items-center flex md:flex-row flex-col md:space-y-0 space-y-5 w-full justify-between">
-            <div className="flex items-center gap-3">
+          <div className="items-center flex md:flex-row flex-col max-md:space-y-5 w-full justify-between">
+            <div className="flex gap-3">
               <h2 className="text-2xl font-semibold">Post Pool</h2>
               <CreatePost
                 onClose={() => setCreatePost(!createPost)}
