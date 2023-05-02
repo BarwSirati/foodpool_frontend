@@ -21,9 +21,9 @@ const Search = ({menu, page}) =>{
     }
 
     return(
-        <div className='relative mr-4'>
+        <div className='relative max-md:order-1 flex justify-center'>
             <input type="text"  id="search" autoComplete="off" className='bg-gray-200 focus:bg-white border-gray-200 border-2 rounded-full pl-4 pr-7 h-10 transition-colors focus:outline-none w-5/6 md:w-full' placeholder='Search...' {...register('search')} onChange={(e) => showmenu(e)}/>
-            <label className={`${searchMenu == '' ? 'invisible' : ''}  absolute top-2 z-50 right-3`} onClick={() => resetSearch()}>X</label>
+            <label className={`${searchMenu == '' ? 'invisible' : ''}  absolute top-2 z-50  md:right-3 right-14`} onClick={() => resetSearch()}>X</label>
         </div>
     )
 }
