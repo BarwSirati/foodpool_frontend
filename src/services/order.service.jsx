@@ -36,21 +36,18 @@ export const getOrderByPostId = async (postId) => {
 }
 
 export const updateStatusByPostUser = async (status, orderId) => {
-  const token = Cookies.get('token')
-  if (token) {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-    try {
-      // console.log(status)
-      // console.log(postId)
-      const res = await axios.put(`/api/order/post/${orderId}`, {
-        status: +status,
-      })
-      console.log(res)
-      // if (res.status === 200) {
-      //     Swal.fire('Close Success', 'You clicked the button!', 'success')
-      // }
-    } catch (error) {
-      console.log(error)
+    const token = Cookies.get('token')
+    if (token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        try {
+        // console.log(status)
+        // console.log(postId)
+            const res = await axios.put(`/api/order/post/${orderId}`, {
+                status: +status,
+            })
+            // console.log(res)
+        } catch (error) {
+            console.log(error)
+        }
     }
-  }
 }

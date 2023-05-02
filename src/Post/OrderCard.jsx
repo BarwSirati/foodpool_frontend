@@ -1,12 +1,10 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { updateStatusByPostUser } from '../services/order.service'
 import Swal from 'sweetalert2';
 
 const OrderCard = (props) => {
 
-    // const [statusColor, setStatusColor] = useState('orange-400')
-
+    const [currentStatus, setCurrentStatus] = useState(+props.status)
     const status = [
         { name: 'รอยืนยัน', color: 'orange-400' },
         { name: 'กำลังซื้อ', color: 'indigo-400' },
@@ -16,25 +14,31 @@ const OrderCard = (props) => {
     ]
 
     const changeStatus = (newStatus) => {
-        Swal.fire({
-            title: 'Do you want to save the changes?',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            showCancelButton: true,
-            confirmButtonText: 'Confirm',
-        }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-                const res = updateStatusByPostUser(newStatus, props.orderId)
-                if (res) {
-                    // setStatusColor(color)
-                    console.log(newStatus)
-                    console.log(props.orderId)
+        if (currentStatus < +newStatus) {
+            Swal.fire({
+                title: 'Do you want to save the changes?',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                showCancelButton: true,
+                confirmButtonText: 'Confirm',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    const res = updateStatusByPostUser(newStatus, props.orderId)
+                    if (res) {
+                        setCurrentStatus(currentStatus+1)
+                        console.log(props.status)
+                        console.log(props.orderId)
+                    }
                 }
-            } else if (result.isDenied) {
-                Swal.fire('Changes are not saved', '', 'info')
-            }
-        })
+            })
+        } else {
+            Swal.fire({
+                title: 'Cannot change status',
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'ok',
+            })
+        }
     }
 
     return (
@@ -52,7 +56,7 @@ const OrderCard = (props) => {
                     <h3 className='md:text-base sm:text-sm text-xs'>Line : {props.user.line}</h3>
                     <h3 className='md:text-base sm:text-sm text-xs'>Tel : {props.user.tel}</h3>
                 </div>
-                <select value={props.status} onChange={(e) => changeStatus(e.target.value)} className={`appearance-none bg-${status[props.status].color} lg:my-2 lg:py-5 px-3 py-2 rounded-md`}>
+                <select value={currentStatus} onChange={(e) => changeStatus(e.target.value)} className={`appearance-none bg-${status[currentStatus].color} lg:my-2 lg:py-5 px-3 py-2 rounded-md`}>
                     <option value='0'>{status[0].name}</option>
                     <option value='1'>{status[1].name}</option>
                     <option value='2'>{status[2].name}</option>
