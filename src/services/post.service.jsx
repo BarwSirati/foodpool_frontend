@@ -33,7 +33,7 @@ export const updateByPostUser = async ( postStatus, postId ) => {
       try {
           console.log(postStatus)
           console.log(postId)
-          const res = await axios.put(`/api/post/${postId}`, { PostStatus: postStatus})
+          const res = await axios.put(`/api/post/${postId}`, { postStatus: postStatus})
           if (res.status === 200) {
             Swal.fire('Close Success', 'You clicked the button!', 'success')
             return true

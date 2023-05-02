@@ -39,6 +39,8 @@ const OrderDetail = () => {
                                 menu = {data.menuName}
                                 postInfo = {data.post}
                                 user = {data.user}
+                                orderId = {data.id}
+                                status = {data.status}
                             />
                         )
                     })
