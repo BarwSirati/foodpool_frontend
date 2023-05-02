@@ -9,14 +9,14 @@ const Pagination = ({ postPerPage, totalPosts, paginate }) => {
       breakLabel="..."
       nextLabel=">"
       onPageChange={(n) => paginate(n.selected)}
+      onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
       pageRangeDisplayed={3}
       marginPagesDisplayed={3}
       pageCount={pageNumbers}
       previousLabel="<"
       renderOnZeroPageCount={null}
       pageClassName="paginate-item"
-      pageLinkClassName=""
-      className="paginate"
+      className={`paginate ${pageNumbers > 1 ? '' : 'invisible'} `}
       nextClassName={'paginate-arrow'}
       previousClassName={'paginate-arrow'}
       breakClassName="paginate-item"

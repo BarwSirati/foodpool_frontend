@@ -2,6 +2,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
 
+
 export const login = async (username, password) => {
   try {
     const res = await axios.post('/api/auth/login', { username, password })

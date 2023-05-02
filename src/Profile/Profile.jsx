@@ -31,7 +31,7 @@ const Profile = () => {
   }
   return (
     <Container>
-      <h2 className="text-2xl font-semibold">Profile</h2>
+      <h2 className="text-2xl font-semibold mb-10">Profile</h2>
       <div className="pt-5">
         <div className="text-center space-y-5">
           <img src={ProfileLogo} className="w-36 mx-auto" />

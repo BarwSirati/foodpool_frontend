@@ -2,164 +2,175 @@ import React from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import Container from '../components/Container'
 import Card from '../components/Card'
-import axios from 'axios'
 import { useState, useEffect } from 'react'
 import Pagination from '../components/Pagination'
+import { getPost } from '../services/post.service'
+import { getStall } from '../services/stall.service'
+import Header from '../components/Header'
+import CreatePost from './CreatePost'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import Input from '../components/Input'
-import * as yup from 'yup'
-import Select from '../components/Select'
-
-const schema = yup.object().shape({
-  stallId: yup.number().required(),
-  menuName: yup.string().required(),
-  location: yup.string().required(),
-  description: yup.string(),
-  typePost: yup.number().required(),
-  limitOrder: yup.number().min(1).max(10).required(),
-})
+// import Search from './Search'
 
 const Home = () => {
   const [createPost, setCreatePost] = useState(false)
-  const [data, setData] = useState([])
+  const [isloading, setIsLoading] = useState(false)
+  const [postData, setpostData] = useState([])
+  const [refresh, setRefresh] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
-  const postsPerPage = 9
+  const [Search, setSearch] = useState('')
+  const [SearchStall, setSearchStall] = useState('')
+  const [stallData, setStallData] = useState([])
+  const [windowSize, SetWindowSize] = useState(window.innerWidth)
+  let postsPerPage = 9
+  if (windowSize < 1280) {
+    postsPerPage = 8
+  }
 
   const { user } = useAuth()
+  const { register, getValues, setValue } = useForm()
 
   useEffect(() => {
-    const fetchDatas = async () => {
-      const res = await axios.get('https://jsonplaceholder.typicode.com/posts')
-      setData(res.data)
+    const fetchPost = async () => {
+      setIsLoading(true)
+      const res = await getPost()
+      setpostData(res)
+      setIsLoading(false)
     }
 
-    fetchDatas()
+    const fetchStalls = async () => {
+      const stall = await getStall()
+      setStallData(stall)
+    }
+
+    fetchStalls()
+
+    fetchPost()
+
+    const handleWindowResize = () => {
+      SetWindowSize(window.innerWidth)
+    }
+
+    window.addEventListener('resize', handleWindowResize)
+
+    return () => {
+      window.removeEventListener('resize', handleWindowResize)
+    }
   }, [])
 
   const indexOfLastPost = currentPage * postsPerPage
   const indexOfFirstPost = indexOfLastPost - postsPerPage
-  let currentPosts = data.slice(
-    data.length - indexOfLastPost,
-    data.length - indexOfFirstPost
-  )
-  if (indexOfLastPost > data.length) {
-    currentPosts = data.slice(0, data.length - indexOfFirstPost)
-  }
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) })
+  const postfilter = postData
+    .filter((item) => {
+      return Search.toLowerCase() === ''
+        ? item
+        : item.menuName.toLowerCase().includes(Search)
+    })
+    .filter((item) => {
+      return SearchStall.toLowerCase() == ''
+        ? item
+        : item.stall.name.toLowerCase().includes(SearchStall)
+    })
+  const currentPosts = postfilter.slice(indexOfFirstPost, indexOfLastPost)
 
-  const onSubmit = async (data) => {
-    data.userId = user.id
-    console.log(data)
+  const showSearch = (e) => {
+    setSearch(e.target.value)
+    console.log(Search)
   }
+
+  const resetSearch = () => {
+    setValue('search', '')
+    setSearch('')
+  }
+
+  const showStall = (e) => {
+    setSearchStall(e.currentTarget.value)
+  }
+
   return (
-    <Container>
-      <div className="flex">
-        <div className="items-center flex">
-          <h2 className="text-2xl font-semibold">Post Pool</h2>
-        </div>
-        <div className="ml-auto">
-          <label
-            className="btn btn-warning text-2xl"
-            onClick={() => setCreatePost(!createPost)}
-          >
-            +
-          </label>
-        </div>
-        <div
-          className={`modal backdrop-blur-sm ${createPost ? 'modal-open' : ''}`}
-        >
-          <div className="modal-box max-w-5xl bg-white divide-y-2 divide-line">
-            <h2 className="text-2xl font-semibold mb-5">Create Post</h2>
-            <div>
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="mt-5 space-y-5"
-              >
-                <Select
-                  id={'stall'}
-                  label={'ชื่อร้าน'}
-                  options={[
-                    { name: 'เลือกร้านอาหาร', value: '' },
-                    { name: 'API', value: '1' },
-                  ]}
-                  register={register('stallId')}
-                  error={errors.stallId?.message}
-                />
-                <Input
-                  id={'menuName'}
-                  label={'ชื่อเมนู'}
-                  placeholder={'ชื่อเมนู'}
-                  register={register('menuName')}
-                  error={errors.menuName?.message}
-                />
-                <Select
-                  id={'typePost'}
-                  label={'ประเภทคำสั่งซื้อ'}
-                  options={[
-                    { name: 'เลือกประเภทคำสั่งซื้อ', value: '' },
-                    { name: 'API', value: '1' },
-                  ]}
-                  register={register('typePost')}
-                  error={errors.typePost?.message}
-                />
-                <Input
-                  id={'location'}
-                  label={'สถานที่จัดส่ง'}
-                  placeholder={'สถานที่จัดส่ง'}
-                  register={register('location')}
-                  error={errors.location?.message}
-                />
-                <Input
-                  id={'limitOrder'}
-                  type="number"
-                  label={'จำนวนที่รับฝาก'}
-                  placeholder={'จำนวนที่รับฝาก'}
-                  register={register('limitOrder')}
-                  error={errors.limitOrder?.message}
-                />
-                <Input
-                  id={'description'}
-                  label={'อื่นๆ'}
-                  placeholder={'อื่นๆ'}
-                  register={register('description')}
-                  error={errors.description?.message}
-                />
-                <div className="w-full flex space-x-2 justify-end">
-                  <button type="submit" className="btn btn-success">
-                    Save
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-error"
-                    onClick={() => setCreatePost(!createPost)}
-                  >
-                    Discard
-                  </button>
-                </div>
-              </form>
+    <>
+      <Header />
+      <Container>
+        <div className="flex md:px-10 mb-10">
+          <div className="items-center flex md:flex-row flex-col md:space-y-0 space-y-5 w-full justify-between">
+            <div className="flex items-center gap-3">
+              <h2 className="text-2xl font-semibold">Post Pool</h2>
+              <CreatePost
+                onClose={() => setCreatePost(!createPost)}
+                user={user}
+                state={createPost}
+              />
             </div>
+            <div className="relative flex items-center justify-center">
+              <input
+                type="text"
+                id="search"
+                autoComplete="off"
+                className="bg-gray-200 focus:bg-white border-gray-200 border-2 rounded-full pl-4 pr-7 h-10 transition-colors focus:outline-none w-5/6 md:w-full"
+                placeholder="Search..."
+                {...register('search')}
+                onChange={(e) => showSearch(e)}
+              />
+              <label
+                className={`${
+                  Search == '' ? 'invisible' : ''
+                }  absolute top-2 z-50 right-3`}
+                onClick={() => resetSearch()}
+              >
+                X
+              </label>
+            </div>
+            <select
+              id="stall"
+              defaultValue={''}
+              className="bg-gray-200 rounded-xl select select-sm"
+              {...register('searchStall')}
+              onChange={(e) => setSearchStall(e.target.value)}
+            >
+              <option id="" value="">
+                เลือกร้านอาหาร
+              </option>
+              {stallData.map((stall) => (
+                <option value={stall.name} key={stall.id}>
+                  {stall.name}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
-      </div>
-
-      <div className="flex md:flex-wrap md:flex-row flex-col justify-center md:py-10 py-3">
-        {currentPosts.reverse().map((data) => (
-          <Card name={data.id} user={user.id} />
-        ))}
-      </div>
-      <div className="pagination pt-10">
-        <Pagination
-          postPerPage={postsPerPage}
-          totalPosts={data.length}
-          paginate={(pageNumber) => setCurrentPage(pageNumber + 1)}
-        />
-      </div>
-    </Container>
+        <div className="flex md:flex-wrap md:flex-row flex-col justify-center md:py-10 py-3">
+          {isloading ? (
+            <h1 className="text-3xl font-semibold">Loading</h1>
+          ) : postData.length < 1 ? (
+            'ยังไม่มี Post'
+          ) : currentPosts.length < 1 ? (
+            'Not found'
+          ) : (
+            currentPosts.map((data) => (
+              <Card
+                owner={data.user.name + ' ' + data.user.lastname}
+                menuName={data.menuName}
+                stallName={data.stall.name}
+                limitOrder={data.limitOrder}
+                type={data.typePost}
+                location={data.location}
+                post={data}
+                user={user}
+                countOrder={data.countOrder}
+                refresh={() => setRefresh(true)}
+                key={data.id}
+              />
+            ))
+          )}
+        </div>
+        <div className="pagination pt-10">
+          <Pagination
+            postPerPage={postsPerPage}
+            totalPosts={postfilter.length}
+            paginate={(pageNumber) => setCurrentPage(pageNumber + 1)}
+          />
+        </div>
+      </Container>
+    </>
   )
 }
 

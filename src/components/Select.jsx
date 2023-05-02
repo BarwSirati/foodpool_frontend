@@ -6,13 +6,13 @@ const Select = ({ id, label, options, error, register }) => {
       <label htmlFor={id}>{label}</label>
       <select
         id={id}
-        className={`w-full p-4 transition-colors bg-gray-200 border rounded-xl focus:bg-gray-100 focus:outline-none ${
+        className={`w-full h-14 select bg-gray-200 transition-colors ${
           error && 'border-red-500'
         }`}
         {...register}
       >
-        {options.map(({ name, value }) => (
-          <option value={value} key={value}>
+        {options.map(({ name, id }) => (
+          <option value={id} key={id}>
             {name}
           </option>
         ))}

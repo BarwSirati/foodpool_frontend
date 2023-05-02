@@ -17,7 +17,6 @@ html {
 }
 
 ::-webkit-scrollbar {
-  overflow: hidden;
   display: none;
 }
 
@@ -66,7 +65,7 @@ html {
 }
 
 .navbar {
-  @apply px-4 text-white bg-background py-5;
+  @apply md:px-20 px-4 text-white bg-background py-4;
 }
 
 .navbar-header {
@@ -74,17 +73,19 @@ html {
 }
 
 .navbar-menu {
-  @apply flex-none mt-2 ml-auto hidden lg:block;
+  @apply flex-none ml-auto hidden lg:block font-semibold;
 }
+
 .navbar-menu > ul {
-  @apply space-x-7 menu-horizontal pr-3;
+  @apply space-x-2 menu-horizontal pr-3;
 }
+
 .navbar-menu-item {
-  @apply cursor-pointer text-white text-xl font-bold;
+  @apply cursor-pointer text-white text-xl;
 }
 
 .navbar-menu-mobile {
-  @apply fixed w-screen lg:hidden top-[88px];
+  @apply fixed w-screen lg:hidden top-[80px];
   @apply bg-slate-800 py-4;
   opacity: 0;
   transform: translateX(-100vw);
@@ -95,7 +96,7 @@ html {
   transform: translateX(0);
 }
 .navbar-menu-mobile-item {
-  @apply cursor-pointer text-white px-8 py-6 text-xl font-bold;
+  @apply cursor-pointer text-white px-8 py-6 text-xl;
 }
 .navbar-menu-mobile-item.active > span {
   @apply cursor-default  border-b-4;
@@ -106,7 +107,7 @@ html {
 }
 
 .navbar-menu-mobile-button > label {
-  @apply swap swap-rotate justify-items-center;
+  @apply justify-items-center;
   border-radius: 5px;
 }
 .navbar-menu-mobile-button > label > .icon {
@@ -133,10 +134,13 @@ html {
 }
 .paginate {
   @apply py-6;
-  @apply w-[min(1400px,100%)] flex lg:gap-x-2 justify-center;
+  @apply w-[min(1400px,100%)] flex md:gap-x-2 justify-center;
   @apply lg:left-[-20px];
   border-radius: 10px;
   position: relative;
+}
+.paginate-item{
+  @apply active:scale-90
 }
 .paginate-item > a {
   @apply text-white py-2 px-4 lg:py-4 lg:px-8;
@@ -152,8 +156,11 @@ html {
   @apply bg-background border-rose-500;
   cursor: default;
 }
+.paginate-arrow{
+  @apply active:scale-90
+}
 .paginate-arrow > a {
-  @apply md:text-white text-black py-4 px-8 md:bg-headcard bg-none;
+  @apply md:text-white text-black py-2 px-4 lg:py-4 lg:px-8 md:bg-headcard bg-none;
   border-radius: 10px;
   outline: none;
 }
@@ -455,4 +462,52 @@ html {
   100% {
     -webkit-transform: rotate(360deg);
   }
+}
+/* custom scrollbar */
+.modal-box::-webkit-scrollbar {
+  width: 20px;
+  display: block;
+}
+
+.modal-box::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.modal-box::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+.modal-box::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}
+
+/* custom scrollbar */
+.menuBox::-webkit-scrollbar {
+  width: 20px;
+  display: block;
+}
+
+.menuBox::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.menuBox::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+.menuBox::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}
+
+.header {
+  background-image: url('background.jpg');
+  background-size: cover;
+  background-position: center;
+  @apply w-full md:h-72 h-[16.5rem];
 }
