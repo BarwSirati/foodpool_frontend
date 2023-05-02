@@ -38,7 +38,6 @@ const PostList = (props) => {
         }
     }
 
-    // console.log(status)
     return (
         <div>
             <div className={`bg-[#353474] text-[#FAF5FF] flex p-5 ${
