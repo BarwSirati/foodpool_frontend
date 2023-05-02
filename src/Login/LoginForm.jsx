@@ -1,24 +1,26 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import Input from '../components/Input'
 import * as yup from 'yup'
-import Input from '../components/Login/Input'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 
 const schema = yup.object().shape({
-  username: yup.string().required('Please enter your username'),
-  password: yup.string().required('Please enter your password'),
+  username: yup.string().required(),
+  password: yup.string().required(),
 })
 
 const LoginForm = () => {
+  const { login } = useAuth()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) })
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit = async (data) => {
+    await login(data.username, data.password)
   }
   return (
     <div className="flex flex-col flex-auto p-8 bg-white divide-y divide-line">
@@ -39,6 +41,7 @@ const LoginForm = () => {
         <Input
           id={'password'}
           label={'Password'}
+          type="password"
           placeholder={'password'}
           error={errors.password?.message}
           register={register('password', { required: true })}
@@ -51,7 +54,7 @@ const LoginForm = () => {
         </button>
         <div className="text-base font-medium text-center">
           Don't have an account yet ?
-          <Link href="register" className="ml-1 text-orange-600 font-semibold">
+          <Link to="/register" className="ml-1 text-orange-600 font-semibold">
             Sign Up
           </Link>
         </div>

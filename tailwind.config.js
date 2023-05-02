@@ -8,8 +8,12 @@ export default {
         logo: '#FFB6B6',
         line: '#DB5227',
         button: '#F47A72',
+        body: '#FFB7B7',
+        headcard: '#353474',
+        bodycard: '#FAF5FF',
       },
     },
   },
+  
   plugins: [require('daisyui')],
 }
