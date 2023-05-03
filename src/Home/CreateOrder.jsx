@@ -14,16 +14,16 @@ const schema = yup.object().shape({
   note: yup.string(),
 })
 
-const CreateOrder = ({ onClose, state, post, user, isFull, refresh }) => {
+const CreateOrder = ({ onClose, state, post, user, isFull }) => {
   const [order, setOrder] = useState([])
   const [isLoading, setIsLoading] = useState([])
+  const [currentMenu, setCurrentMenu] = useState('')
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-    getValues,
   } = useForm({ resolver: yupResolver(schema) })
 
   useEffect(() => {
@@ -58,7 +58,10 @@ const CreateOrder = ({ onClose, state, post, user, isFull, refresh }) => {
     }
   }
 
-  // console.log(Math.floor(Math.random()*(6-1))+1)
+  const showcurmenu = async (menu) => {
+    await setValue('menuName', menu)
+    setCurrentMenu(menu)
+  }
 
   return (
     <div className="absolute right-5">
@@ -88,8 +91,8 @@ const CreateOrder = ({ onClose, state, post, user, isFull, refresh }) => {
                 order.map((data) => {
                   return (
                     <MenuList
-                      menu={(menu) => setValue('menuName', menu)}
-                      curMenu={getValues('menuName')}
+                      menu={(menu) => showcurmenu(menu)}
+                      curMenu={currentMenu}
                       name={data.menuName}
                       key={data.id}
                     />
@@ -104,7 +107,7 @@ const CreateOrder = ({ onClose, state, post, user, isFull, refresh }) => {
               )}
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className="mt-5 space-y-5">
-              <div className=' relative'>
+              <div className=' relative' onKeyDown={() => setCurrentMenu('')}>
               <Input
                 id={'menuName'}
                 label={'ชื่อเมนู'}
@@ -112,7 +115,7 @@ const CreateOrder = ({ onClose, state, post, user, isFull, refresh }) => {
                 register={register('menuName')}
                 error={errors.menuName?.message}
               />
-              {order.length > 1 ? (<div className='btn btn-warning absolute top-9 right-2 ' onClick={() => setValue('menuName', order[Math.floor(Math.random()*(order.length-1))+1].menuName)}>?</div>) : (<div></div>) }
+              {order.length > 1 ? (<div className='btn btn-warning absolute top-9 right-2 ' onClick={() => setValue('menuName', order[Math.floor(Math.random()*(order.length))].menuName)}>?</div>) : (<div></div>) }
               </div>
               <Input
                 id={'note'}
