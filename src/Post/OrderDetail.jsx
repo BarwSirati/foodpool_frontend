@@ -26,6 +26,8 @@ const OrderDetail = () => {
       <div className="pt-5 lg:px-32">
         {isloading ? (
           <h1 className="text-3xl font-semibold">Loading</h1>
+        ) : orderData.length === 0 ? (
+          <h1 className="text-3xl font-semibold text-center">No data</h1>
         ) : (
           orderData.map((data) => {
             return (

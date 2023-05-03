@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext'
 import PostList from './PostList'
 import Container from '../components/Container'
 import Pagination from '../components/Pagination'
+import Search from '../components/Search'
 
 import { getPostByUserId } from '../services/post.service'
 
@@ -11,6 +12,7 @@ const Post = () => {
   const [isloading, setIsLoading] = useState(false)
   const [postData, setPostData] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
+  const [SearchMenu, setSearchMenu] = useState('')
   let postsPerPage = 8
 
   const { user } = useAuth()
@@ -27,23 +29,31 @@ const Post = () => {
 
   const indexOfLastPost = currentPage * postsPerPage
   const indexOfFirstPost = indexOfLastPost - postsPerPage
-  let currentPosts = postData.slice(
-    postData.length - indexOfLastPost,
-    postData.length - indexOfFirstPost
-  )
-  if (indexOfLastPost > postData.length) {
-    currentPosts = postData.slice(0, postData.length - indexOfFirstPost)
-  }
-
+  const postfilter = postData
+    .filter((item) => {
+      return SearchMenu.toLowerCase() === ''
+        ? item
+        : item.menuName.toLowerCase().includes(SearchMenu) || item.stall.name.toLowerCase().includes(SearchMenu)
+    })
+  const currentPosts = postfilter.slice(indexOfFirstPost, indexOfLastPost)
 
   return (
     <Container>
-      <h2 className="text-2xl font-semibold">My post history</h2>
+      <div className='flex justify-between'>
+        <h2 className="text-2xl font-semibold">My post history</h2>
+        <Search
+          menu={(menuname) => setSearchMenu(menuname)}
+          page={() => setCurrentPage(1)}
+        />
+      </div>
       <div className="pt-5 space-y-4">
         {isloading ? (
           <h1 className="text-3xl font-semibold">Loading</h1>
+        ) : postfilter.length === 0 ? (
+          <h1 className="text-3xl font-semibold text-center">No data</h1>
         ) : (
           currentPosts.map((data) => {
+            console.log(data)
             return (
                 <PostList 
                   key = {data.id}
