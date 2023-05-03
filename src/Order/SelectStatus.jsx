@@ -13,7 +13,7 @@ const SelectStatus = ({searchStatus, page}) => {
             defaultValue={''}
             className="bg-gray-200 rounded-xl select select-sm"
             onChange={(e) => showOrder(e)}>
-            <option id="" value="">
+            <option id="" value= {-1}>
                 เลือกสถานะ
             </option>
             <option value={0}>รอยืนยัน</option>

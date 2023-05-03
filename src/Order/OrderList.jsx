@@ -26,10 +26,12 @@ const OrderList = (props) => {
             <h2 className="hidden md:block text-xl md:pt-1">({props.postInfo.stall.name})</h2>
           </div>
           <div className="w-full flex">
-            <div className="ml-auto flex space-x-2">
+            <div className="ml-auto flex space-x-2 relative">
               <h1 className={`md:pt-1 ${state[props.status].color} rounded-md px-5`}>
                 {state[props.status].name}
               </h1>
+              {props.status == 0 ? <label className='absolute right-9 top-1' onClick={() => props.cancel()}>X</label> : ''}
+              
               <label className="swap swap-rotate">
                 <input
                   type="checkbox"

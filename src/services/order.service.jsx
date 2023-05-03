@@ -83,3 +83,17 @@ export const updateStatusByPostUser = async (status, orderId) => {
     }
   }
 }
+
+export const updateStatusByOrderUser = async (status, orderId) => {
+  const token = Cookies.get('token')
+  if (token) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    try {
+      const res = await axios.put(`/api/order/user/${orderId}`, {
+        status: +status,
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}

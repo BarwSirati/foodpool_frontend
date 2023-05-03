@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react'
-
 import { useAuth } from '../contexts/AuthContext'
 import OrderList from './OrderList'
 import Container from '../components/Container'
 import Pagination from '../components/Pagination'
 import SelectStatus from './SelectStatus'
-
-import { getOrderByUserId } from '../services/order.service'
+import { getOrderByUserId, updateStatusByOrderUser } from '../services/order.service'
 
 const Order = () => {
   const [isloading, setIsLoading] = useState(false)
   const [orderData, setOrderData] = useState([])
+  const [cancel, setCancel] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [searchStatus, setSearchStatus] = useState(-1)
   let postsPerPage = 8
@@ -62,6 +61,7 @@ const Order = () => {
                 note = {data.note}
                 postInfo = {data.post}
                 status = {data.status}
+                cancel = {() => updateStatusByOrderUser(+4, data.id)}
               />
             )
           })
