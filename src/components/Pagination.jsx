@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactPaginate from 'react-paginate'
 
-const Pagination = ({ postPerPage, totalPosts, paginate }) => {
+const Pagination = ({ postPerPage, totalPosts, paginate, showpage = 0 }) => {
   const pageNumbers = Math.ceil(totalPosts / postPerPage)
 
   return (
@@ -12,7 +12,8 @@ const Pagination = ({ postPerPage, totalPosts, paginate }) => {
       onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
       pageRangeDisplayed={3}
       marginPagesDisplayed={3}
-      pageCount={pageNumbers}
+      pageCount={pageNumbers > 0 ? pageNumbers : 1}
+      forcePage={showpage}
       previousLabel="<"
       renderOnZeroPageCount={null}
       pageClassName="paginate-item"

@@ -25,7 +25,6 @@ const PostList = (props) => {
                 showCancelButton: true,
                 confirmButtonText: 'Confirm',
             }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     const res = updateByPostUser(1,props.id)
                     if (res) {
@@ -49,19 +48,15 @@ const PostList = (props) => {
                     <h2 className="hidden md:block text-xl md:pt-1">({props.stall.name})</h2>
                 </div>
                 <div className="w-full flex">
-                    <div className="ml-auto flex space-x-2">
-                        <div className="ml-auto flex space-x-2">
-                            <h1 className={`md:pt-1 ${postStatus[status].color} rounded-md px-5 text-[#FAF5FF]`}>
-                                <button onClick={updateStatusPost}>
-                                    {postStatus[status].status}
-                                </button>
-                            </h1>
-                        </div>
-                        <h1 className={`md:pt-1 btn-info rounded-md px-5 text-[#FAF5FF]`}>
+                    <div className="ml-auto flex space-x-2 items-center">
+                        <button onClick={updateStatusPost} className={`btn btn-sm capitalize ${status == 1 ? 'cursor-default' : ''} md:pt-1 ${postStatus[status].color} rounded-md px-5 text-[#FAF5FF]`}>
+                            {postStatus[status].status}
+                        </button>
+                        <button className={`md:pt-1 btn btn-sm btn-info capitalize rounded-md px-5 text-[#FAF5FF]`}>
                             <Link to={`/post/${props.id}`}>
                                 detail
                             </Link>
-                        </h1>
+                        </button>
                         <label className="swap swap-rotate">
                             <input
                             type="checkbox"

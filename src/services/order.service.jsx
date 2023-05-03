@@ -83,3 +83,32 @@ export const updateStatusByPostUser = async (status, orderId) => {
     }
   }
 }
+
+export const updateStatusByOrderUser = async (status, orderId) => {
+  const token = Cookies.get('token')
+  if (token) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    try {
+      const res = await axios.put(`/api/order/user/${orderId}`, {
+        status: +status,
+      })
+      if (res.status === 200) {
+        Swal.fire('Cancel Order', 'You clicked the button!', 'success').then(
+          (result) => {
+            if (result.isConfirmed) {
+              document.location = '/order'
+            }
+          }
+        )
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}

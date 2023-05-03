@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import CreateOrder from '../Home/CreateOrder'
 
-const Card = ({ menuName, stallName, limitOrder, type, location, owner, post, user, countOrder, refresh }) => {
+const Card = ({ menuName, stallName, limitOrder, type, location, owner, post, user, countOrder }) => {
   let state = true
 
   const [createOrder, setCreateOrder] = useState(false)
@@ -32,7 +32,6 @@ const Card = ({ menuName, stallName, limitOrder, type, location, owner, post, us
           user={user}
           owner={owner}
           isFull={state}
-          refresh={refresh}
         />
       </div>
     </div>

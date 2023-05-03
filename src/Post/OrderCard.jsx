@@ -13,27 +13,27 @@ const OrderCard = (props) => {
   ]
 
   const changeStatus = (newStatus) => {
-    if (currentStatus < +newStatus) {
-      Swal.fire({
-        title: 'Do you want to save the changes?',
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        showCancelButton: true,
-        confirmButtonText: 'Confirm',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          const res = updateStatusByPostUser(newStatus, props.orderId)
-          if (res) {
-            setCurrentStatus(newStatus)
-          }
-        }
-      })
-    } else {
+    if ((+newStatus == 4 && currentStatus > 1) || (currentStatus > +newStatus)) {
       Swal.fire({
         title: 'Cannot change status',
         confirmButtonColor: '#d33',
         confirmButtonText: 'ok',
       })
+    } else if (currentStatus < +newStatus ) {
+        Swal.fire({
+          title: 'Do you want to save the changes?',
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          showCancelButton: true,
+          confirmButtonText: 'Confirm',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const res = updateStatusByPostUser(newStatus, props.orderId)
+            if (res) {
+              setCurrentStatus(newStatus)
+            }
+          }
+        })
     }
   }
 
@@ -52,22 +52,25 @@ const OrderCard = (props) => {
           <h3 className="md:text-base sm:text-sm text-xs">
             สถานที่รับ : {props.postInfo.location}
           </h3>
-        </div>
-        <div className="flex-col">
           <h3 className="md:text-base sm:text-sm text-xs">
             ชื่อผู้รับ : {props.user.name} {props.user.lastname}
           </h3>
+        </div>
+        <div className="flex-col">
           <h3 className="md:text-base sm:text-sm text-xs">
             Line : {props.user.line}
           </h3>
           <h3 className="md:text-base sm:text-sm text-xs">
             Tel : {props.user.tel}
           </h3>
+          <h3 className="md:text-base sm:text-sm text-xs">
+            อื่นๆ : {props.note}
+          </h3>
         </div>
         <select
           value={currentStatus}
           onChange={(e) => changeStatus(e.target.value)}
-          className={`appearance-none text-center bg-${status[currentStatus].color} lg:my-2 lg:py-5 px-3 py-2 rounded-md`}
+          className={`appearance-none text-center bg-${status[currentStatus].color} cursor-pointer lg:my-2 lg:py-5 px-3 py-2 rounded-md`}
         >
           <option value="0">{status[0].name}</option>
           <option value="1">{status[1].name}</option>
