@@ -33,6 +33,7 @@ const Navbar = ({ point }) => {
                 <Link to={path.to} key={path.key}>
                   <li
                     className={`navbar-menu-item hover:bg-red-500 p-2 px-5 hover:rounded-lg`}
+                    onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
                   >
                     {path.name}
                   </li>
