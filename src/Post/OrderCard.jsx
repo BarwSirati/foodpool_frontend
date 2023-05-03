@@ -13,7 +13,7 @@ const OrderCard = (props) => {
   ]
 
   const changeStatus = (newStatus) => {
-    if (currentStatus < +newStatus) {
+    if (currentStatus < +newStatus && (currentStatus > 0 && +newStatus != 4)) {
       Swal.fire({
         title: 'Do you want to save the changes?',
         confirmButtonColor: '#3085d6',

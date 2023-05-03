@@ -53,7 +53,6 @@ const Post = () => {
           <h1 className="text-3xl font-semibold text-center">No data</h1>
         ) : (
           currentPosts.map((data) => {
-            console.log(data)
             return (
                 <PostList 
                   key = {data.id}
