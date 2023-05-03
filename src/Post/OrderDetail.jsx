@@ -38,6 +38,7 @@ const OrderDetail = () => {
                 user={data.user}
                 orderId={data.id}
                 status={data.status}
+                note={data.note}
               />
             )
           })
