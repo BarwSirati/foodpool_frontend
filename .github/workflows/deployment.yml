@@ -2,7 +2,7 @@ name: Deploy ReactJs site to Pages
 
 on:
   push:
-    branches: ["dev"]
+    branches: ['main']
 
 jobs:
   lintTest:
@@ -18,10 +18,9 @@ jobs:
     steps:
       - name: Checkout ✔️
         uses: actions/checkout@v3
-     
+
       - name: PM2 🟢
         run: bash ./run.sh
 
       - name: Message ✉️
         run: bash ./discord.sh
-        
