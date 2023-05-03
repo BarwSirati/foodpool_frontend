@@ -9,11 +9,11 @@ const HeadCreateOrder = ({post}) =>{
             {post.menuName} ({post.stall.name})
           </h1>
           <div className="mx-auto">
-            <div className="flex">
+            <div className="md:flex">
             <p className=" basis-1/2">จัดซื้อโดย : {post.user.name} {post.user.username}</p>
             <p>สถานที่จัดส่ง : {post.location}</p>
             </div>
-            <div className="flex">
+            <div className="md:flex">
             <p className="basis-1/2">เบอร์ : {post.user.tel}</p>
             <p>ไลน์ : {post.user.line}</p>
             </div>
