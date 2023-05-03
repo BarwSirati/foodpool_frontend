@@ -89,9 +89,9 @@ const Home = () => {
           {isloading ? (
             <h1 className="text-3xl font-semibold">Loading</h1>
           ) : postData.length < 1 ? (
-            'ยังไม่มี Post'
+            <h1 className="text-3xl font-semibold text-center">ยังไม่มีโพส</h1>
           ) : currentPosts.length < 1 ? (
-            'Not found'
+            <h1 className="text-3xl font-semibold text-center">Not Found</h1>
           ) : (
             currentPosts.map((data) => (
               <Card
