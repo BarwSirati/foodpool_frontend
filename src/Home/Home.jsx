@@ -7,7 +7,7 @@ import Pagination from '../components/Pagination'
 import { getPost } from '../services/post.service'
 import Header from '../components/Header'
 import CreatePost from './CreatePost'
-import Search from './Search'
+import Search from '../components/Search'
 import SearchStall from './SearchStall'
 
 const Home = () => {
