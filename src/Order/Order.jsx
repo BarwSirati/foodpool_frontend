@@ -9,7 +9,6 @@ import { getOrderByUserId, updateStatusByOrderUser } from '../services/order.ser
 const Order = () => {
   const [isloading, setIsLoading] = useState(false)
   const [orderData, setOrderData] = useState([])
-  const [cancel, setCancel] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [searchStatus, setSearchStatus] = useState(-1)
   let postsPerPage = 8

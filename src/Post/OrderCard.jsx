@@ -67,7 +67,7 @@ const OrderCard = (props) => {
         <select
           value={currentStatus}
           onChange={(e) => changeStatus(e.target.value)}
-          className={`appearance-none text-center bg-${status[currentStatus].color} lg:my-2 lg:py-5 px-3 py-2 rounded-md`}
+          className={`appearance-none text-center bg-${status[currentStatus].color} cursor-pointer lg:my-2 lg:py-5 px-3 py-2 rounded-md`}
         >
           <option value="0">{status[0].name}</option>
           <option value="1">{status[1].name}</option>

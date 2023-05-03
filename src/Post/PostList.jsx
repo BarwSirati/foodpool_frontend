@@ -25,7 +25,6 @@ const PostList = (props) => {
                 showCancelButton: true,
                 confirmButtonText: 'Confirm',
             }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     const res = updateByPostUser(1,props.id)
                     if (res) {
@@ -52,7 +51,7 @@ const PostList = (props) => {
                     <div className="ml-auto flex space-x-2">
                         <div className="ml-auto flex space-x-2">
                             <h1 className={`md:pt-1 ${postStatus[status].color} rounded-md px-5 text-[#FAF5FF]`}>
-                                <button onClick={updateStatusPost}>
+                                <button onClick={updateStatusPost} className={`${status == 1 ? 'cursor-default' : ''}`}>
                                     {postStatus[status].status}
                                 </button>
                             </h1>
