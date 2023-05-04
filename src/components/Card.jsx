@@ -15,8 +15,8 @@ const Card = ({ menuName, stallName, limitOrder, type, location, owner, post, us
   return (
     <div className="md:w-[40%] lg:w-[35%] xl:w-[30%]  md:m-5 m-4">
       <div className="bg-headcard rounded-t-xl px-5 py-4 relative text-white">
-        <p>{menuName}</p>
-        <label className=" text-xs">{stallName}</label>
+        <p>{stallName}</p>
+        <label className=" text-xs">{menuName}</label>
         <div className={`absolute top-5 right-6 ${state ? 'bg-[#59DDC5]' : 'bg-red-400 text-white'} px-5 py-3 rounded-md text-black text-xs`}>
           {countOrder}/{limitOrder}
         </div>
