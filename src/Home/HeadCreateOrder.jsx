@@ -10,7 +10,7 @@ const HeadCreateOrder = ({post}) =>{
           </h1>
           <div className="mx-auto">
             <div className="md:flex">
-            <p className=" basis-1/2">จัดซื้อโดย : {post.user.name} {post.user.username}</p>
+            <p className=" basis-1/2">จัดซื้อโดย : {post.user.name} {post.user.lastname}</p>
             <p>สถานที่จัดส่ง : {post.location}</p>
             </div>
             <div className="md:flex">

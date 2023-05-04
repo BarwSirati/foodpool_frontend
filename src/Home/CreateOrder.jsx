@@ -57,9 +57,14 @@ const CreateOrder = ({ onClose, state, post, user, isFull }) => {
     }
   }
 
-  const showcurmenu = async (menu) => {
-    await setValue('menuName', menu)
+  const showcurmenu = (menu) => {
+    setValue('menuName', menu)
     setCurrentMenu(menu)
+  }
+
+  const randomMenu = (menu) => {
+    setCurrentMenu(menu)
+    setValue('menuName', menu)
   }
 
   return (
@@ -118,8 +123,7 @@ const CreateOrder = ({ onClose, state, post, user, isFull }) => {
                   <div
                     className="btn btn-warning absolute top-9 right-2 "
                     onClick={() =>
-                      setValue(
-                        'menuName',
+                      randomMenu(
                         order[Math.floor(Math.random() * order.length)].menuName
                       )
                     }
