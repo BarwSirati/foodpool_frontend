@@ -23,7 +23,7 @@ const Navbar = ({ point }) => {
       <div className="navbar">
         <h1 className="navbar-header">
           <MdFastfood className="mr-3" />
-          Foolpool
+          Foodpool
         </h1>
         <div className="navbar-menu">
           <ul className="navbar-menu-wrapper">
