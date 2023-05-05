@@ -26,7 +26,6 @@ const Profile = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) })
   const onSubmit = async (data) => {
-    console.log(user.id)
     await updateProfile(user.id, { ...data })
   }
   return (

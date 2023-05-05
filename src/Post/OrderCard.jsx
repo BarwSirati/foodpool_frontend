@@ -24,6 +24,7 @@ const OrderCard = (props) => {
           title: 'Do you want to save the changes?',
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
+          
           showCancelButton: true,
           confirmButtonText: 'Confirm',
         }).then((result) => {

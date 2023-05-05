@@ -92,7 +92,6 @@ const CreatePost = ({ onClose, user, state }) => {
 
   const onSubmit = async (data) => {
     data.userId = user.id
-    console.log(data)
     await createPost({ ...data })
     onClose()
   }
